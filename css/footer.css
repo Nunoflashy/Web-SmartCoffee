@@ -1,0 +1,61 @@
+@font-face {
+    font-family: sitkaSmall;
+    src: url('../font/sitkaI.ttc') format('truetype');
+}
+
+footer {
+    display: flex;
+    background-color:#464646;
+    margin: 0px;
+    width:100%;
+    height:90px;
+    position: fixed;
+    bottom:0;
+    justify-content: center;
+}
+
+#social {
+    width: 100%;
+    background-color:white;
+}
+
+
+#copyrightFooter {
+    display: flex;
+    position:absolute;
+    width: 100%;
+    font-family: sitkaSmall;
+    font-size: 10pt;
+    color:#595959;
+    align-self: center;
+    margin-left:20px;
+    left: 0;
+    bottom: 20;
+}
+
+ul {
+    list-style:none;
+}
+
+#coffeeIcon {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    margin-top:20px;
+    align-self: flex-start;
+}
+
+#contacts {
+    display: flex;
+    position: absolute;
+    font-family: sitkaSmall;
+    font-size: 8pt;
+    color:#595959;
+    align-self:center;
+    margin-right: 20px;
+    right: 0;
+}
+
+.contactItem {
+    padding-bottom:1px;
+}
