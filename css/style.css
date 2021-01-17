@@ -1,0 +1,76 @@
+@font-face {
+    font-family: sitkaSmall;
+    src: url('../font/sitkaI.ttc') format('truetype');
+}
+
+#usersTable, #productsTable {
+    background-color:rgba(0, 0, 0, .8);
+    border-radius:8px;
+    color: white;
+    font-family:sitkaSmall;
+    font-size:10pt;
+    margin-top: 100px;
+    padding: 10px 10px 10px 10px;
+    border-spacing: 50px 0;
+}
+
+#usersTable, #productsTable td {
+    padding: 0 15px 5px;
+}
+
+.fas {
+    cursor: pointer;
+    color: white;
+}
+
+.addProduct {
+    
+}
+
+.usersImg {
+    width: 39px;
+    height: 32px;
+    border-radius:50px;
+}
+
+#modal{
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    /* background-color: rgba(0,0,0,.8); */
+}
+
+#modal:target{
+    display: block;
+}
+
+.userBox {
+    width: 400px;
+    height: 450px;
+    left: -150px;
+    margin-left: 50%;
+    position: absolute;
+    background-color: rgba(46,46,46, .9);
+    top: -100px;
+    border-radius: 5px;
+    border:#595959;
+    color:white;
+}
+
+#modal:target ~ .userBox {
+    transition: all .8s;
+    top: 150px;
+}
+
+.in {
+    border-radius: 5px;
+    background-color: #464646;
+    color: white;
+    border-color: #595959;
+    border: 0;
+    font-family: sitkaSmall;
+    font-size: 12pt;
+    text-align: center;
+}

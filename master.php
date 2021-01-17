@@ -12,39 +12,54 @@
 <body onload="OnLoad();">
     <header>
         <div>
-            <div><img id="logo" onmouseover="this.src='img/Logo.png'" onmouseout="this.src='img/LogoDisabled.png'" src="img/Logo.png"></div>
-            
             <div id="menu">
+                <div><img id="logo" onmouseover="this.src='img/Logo.png'" onmouseout="this.src='img/LogoDisabled.png'" src="img/Logo.png"></div>
                 <div class="flex-container">
-                    <div class="menuItem" id="btnOverview" onmouseenter="btn_onMouseEnter(1);"><img id="imgOverview" src="img/overviewIcon.png">Vista Geral</div>
-                    <div class="menuItem" id="btnListUsers"><img id="imgListUsers" src="img/usersIcon.png">Ver Clientes</div>
-                    <div class="menuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</div>
+                    <a class="menuItem" id="btnOverview" href="overview.php" onmouseenter="btn_onMouseEnter(1);"><img id="imgOverview" src="img/overviewIcon.png">Vista Geral</a>
+                    <a class="menuItem" id="btnListUsers"><img id="imgListUsers" src="img/usersIcon.png">Ver Clientes</a>
+                    <a class="menuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</a>
                     <div id="authSection">
-                        <a href="login.php#modal"><i class="fas fa-sign-in-alt"></i></a>
-                    </div>
-                </div>
-            </div>
+                        <p><a class="authItem" id="btnLogin" href="login.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login</a></p>
+                        <a class="authItem" id="btnLogin" href="register.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Registar</a>
+                    </div> <!-- authSection -->
+                </div> <!-- flex-container -->
+            </div> <!-- menu -->
+
+<!--             <div id="submenu">Submenu
+                <div class="submenuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</div>
+            </div>   --><!-- submenu -->
         </div>
     </header>
 
     <footer>
         <div class="flex-container">
-            <div id="copyrightFooter"><b>© Smart Coffee 2021</b></div>
-            <div id="social">
-                <ul>
-                    <li class="socialIcon"><i class='fas fa-backward'></i></li>
-                </ul>
-            </div>
-            <img id="coffeeIcon" src="img/footerIcon.png">
-            <div id="contacts">
+            <div class="f1">
+                <div id="copyrightFooter"><b>© Smart Coffee 2021</b></div>
+                <div id="social">
                     <ul>
-                        <b>Contactos</b>
-                        <li class="contactItem"><i class='fas fa-phone-alt' style='font-size:12px'></i> 917140951</li>
-                        <li class="contactItem"><i class='fas fa-phone-alt' style='font-size:12px'></i> 964817214</li>
-                        <li class="contactItem"><i class='fas fa-envelope' style='font-size:12px'></i> support@smartcoffee.com</li>
+                        <i class='fas fa-backward'></i>
+                        <i class='fas fa-backward'></i>
+                        <i class='fas fa-backward'></i>
                     </ul>
-
+                </div>
             </div>
+
+            <div class="f2">F2
+                <img id="coffeeIcon" src="img/footerIcon.png">
+            </div>
+            <div class="f3">F3
+                <div id="contacts">
+                        <ul>
+                            <b>Contactos</b>
+                            <li class="contactItem"><i class='fas fa-phone-alt' style='font-size:12px'></i> 917140951</li>
+                            <li class="contactItem"><i class='fas fa-phone-alt' style='font-size:12px'></i> 964817214</li>
+                            <li class="contactItem"><i class='fas fa-envelope' style='font-size:12px'></i> support@smartcoffee.com</li>
+                        </ul>
+                </div>
+            </div>
+
+            
+
         </div>
     </footer>
 

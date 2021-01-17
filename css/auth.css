@@ -6,14 +6,12 @@
     display: none;
     background-color: rgba(0,0,0,.8);
 }
+
 #modal:target{
     display: block;
 }
-#modal:target ~ .caixa{
-    transition: all .3s;   /*aplica um efeito de descida em 0.3 segundos*/
-    top: 300px;
-}
-.caixa{
+
+.loginBox {
     width: 400px;
     height: 280px;
     left: -150px;
@@ -25,12 +23,35 @@
     border:#595959;
 }
 
+#modal:target ~ .loginBox {
+    transition: all .8s;
+    top: 150px;
+}
+
+.registerBox {
+    width: 400px;
+    height: 380px;
+    left: -150px;
+    margin-left: 50%;
+    position: absolute;
+    background-color: rgba(46,46,46, .6);
+    top: -100px;
+    border-radius: 5px;
+    border:#595959;
+}
+
+#modal:target ~ .registerBox {
+    transition: all .8s;
+    top: 150px;
+}
+
 h4 {
     font-family: sitkaSmall;
 }
 
 .in {
     border-radius: 5px;
+    background-color: #464646;
     border-color: #595959;
     border: 0;
     font-family: sitkaSmall;

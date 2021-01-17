@@ -12,13 +12,18 @@ body {
 header {
     background-color: #464646;
     width: 100%;
-    height: 120px;
+    height: 100px;
+}
+
+a, a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+    border: none;
 }
 
 
 .flex-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:unset;
 }
 
 .menuItem {
@@ -28,11 +33,55 @@ header {
     font-size:16pt;
     color:white;
     position: relative;
-    height:120px;
+    height:100px;
     bottom:99px;
     align-items: center;
     justify-content: center;
     margin-left: 20px;
+    cursor: pointer;
+}
+
+#authSection {
+    display: flex;
+    top: 0;
+    right: 0;
+    margin-left:100px;
+    height:120px;
+}
+
+.authItem {
+    display: flex;
+    flex: 1 1;
+    font-family:sitkaSmall;
+    font-size:10pt;
+    color:white;
+    position: relative;
+    height:40px;
+    bottom:99px;
+    align-items: center;
+    justify-content: center;
+    margin-top:20px;
+    cursor: pointer;
+}
+
+#authSection>a {
+    color:white;
+}
+
+#submenu {
+    display: flex;
+    width:100%; 
+    height:40px;
+    position: absolute;
+    top:100;
+    background-color:red;
+}
+
+.submenuItem {
+    display: flex;
+    flex: 1 1;
+    font-family:sitkaSmall;
+    background-color: #464646;
 }
 
 #btnOverview {
@@ -44,8 +93,8 @@ header {
 }
 
 #imgOverview {
-    width:50px;
-    height:50px;
+    width:34px;
+    height:24px;
 }
 
 
@@ -55,8 +104,13 @@ header {
 
 #logo {
     margin-left: 30px;
+    max-width:70%;
+    height:auto;
 }
 
-#logo:hover {
-    background-image: url("img/Logo.png") no-repeat;
+
+@media screen and (max-width: 1024px) {
+    .flex-container {
+        flex-direction: column;
+    }
 }
