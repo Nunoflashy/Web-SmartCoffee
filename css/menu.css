@@ -68,19 +68,19 @@ a, a:hover, a:visited, a:link, a:active {
 #authSection {
     display: flex;
     top: 0;
-    right: 0;
-    margin-left:100px;
-    height:120px;
+    right:0;
+    margin-left: 90%;
+    width:200px;
+    height:200px;
 }
 
 .authItem {
-    display: flex;
-    flex: 1 1;
     font-family:sitkaSmall;
     font-size:10pt;
     color:white;
     position: relative;
-    height:40px;
+    width: 100px;
+    height:100px;
     bottom:99px;
     align-items: center;
     justify-content: center;

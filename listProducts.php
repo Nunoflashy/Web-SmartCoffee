@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div style="background-image: url('../img/backgroundUsers.png'); width:100%; height:100%;">
+    <div style="background-image: url('img/backgroundUsers.png'); width:100%; height:100%;">
     <center>
         <!-- <div style="width:100%; height:100%; background-color: black; opacity: 0.5; position:absolute;"></div> -->
         <table id="productsTable">

@@ -25,6 +25,14 @@
         mysqli_query($connection, "INSERT INTO user(Name, Mail) VALUES('$n', '$m') ");
     }
 
+    function hasAdminAccount() {
+        include('connectDB.php');
+        $ACCOUNT_ADMIN = 2;
+        $retval = mysqli_query($connection, "SELECT * FROM account'");
+        $res = mysqli_fetch_assoc($retval);
+        return $retval['Type'] == $ACCOUNT_ADMIN;
+    }
+
     if(!userExists($username)) {
         if($password != $repass) {
             echo "Passwords não coincidem!\n";
@@ -32,6 +40,12 @@
         }
         // Adicionar user
         addUser($username, $name, $mail, $password);
+        
+        // Se nao existir uma conta admin, definir esta como uma
+        if(!hasAdminAccount()) {
+            $ACCOUNT_ADMIN = 2;
+            mysqli_query($connection, "UPDATE account SET Type='$ACCOUNT_ADMIN' WHERE account.Username='$username'");
+        }
         
         // Redirect login
         header("location: login.php#modal");

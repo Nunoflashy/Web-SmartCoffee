@@ -3,6 +3,7 @@
     $username  = $_POST['Username'];
     $name      = $_POST['Name'];
     $mail      = $_POST['Mail'];
+    $accType   = $_POST['accType'];
     $pass      = $_POST['Password'];
     $repass    = $_POST["repass"];
 
@@ -22,10 +23,10 @@
     mysqli_query($connection, "UPDATE user SET Mail='$mail' WHERE user.AccountID='$AccountID'");
 
     // Update Tipo
-    //mysqli_query($connection,)
+    mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
 
     // Update Pass
-    if(hasPasswordUpdated() && !isPasswordValid()) {
+    if(hasPasswordUpdated() && isPasswordValid()) {
         mysqli_query($connection, "UPDATE account, user SET Password='$pass' WHERE account.AccountID='$AccountID'");
     }
 

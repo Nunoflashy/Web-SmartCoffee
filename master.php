@@ -20,7 +20,7 @@
                     <a class="menuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</a> -->
                     <div id="authSection">
                         <p><a class="authItem" id="btnLogin" href="login.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login</a></p>
-                        <a class="authItem" id="btnLogin" href="register.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Registar</a>
+                        <p><a class="authItem" id="btnLogin" href="register.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Registar</a></p>
                     </div> <!-- authSection -->
                 </div> <!-- flex-container -->
             </div> <!-- menu -->

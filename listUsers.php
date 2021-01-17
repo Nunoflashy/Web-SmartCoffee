@@ -7,6 +7,13 @@
 
     <?php
         include('master.php');
+
+        //Type
+        $ACCOUNT_CUSTOMER = 1;
+        $ACCOUNT_ADMIN = 2;
+        // Status
+        $ACCOUNT_BLOCKED = 0;
+        $ACCOUNT_NORMAL = 1;
     ?>
 
 </head>
@@ -39,26 +46,32 @@
                         <td><?php echo $res['Username']; ?></td>
                         <th><?php echo $res['Name']; ?></th>
                         <th><?php echo $res['Mail']; ?></th>
-                        <th>
+                        <th> <!-- Tipo de Conta -->
                             <?php
-                                $accType = $res['Type'];
                                 switch($res['Type']) {
-                                    case 1: echo "Cliente"; break;
-                                    case 2: echo "Administrador"; break;
+                                    case $ACCOUNT_CUSTOMER: echo "Cliente"; break;
+                                    case $ACCOUNT_ADMIN: echo "Administrador"; break;
                                 }
                             ?>
                         </th>
-                        <th>
+                        <th> <!-- Estado da Conta -->
                             <?php
                                 switch($res['Status']) {
-                                    case 0: echo "Bloqueada"; break;
-                                    case 1: echo "Normal"; break;
+                                    case $ACCOUNT_BLOCKED: echo "Bloqueada"; break;
+                                    case $ACCOUNT_NORMAL: echo "Normal"; break;
                                 }
                             ?>
                         </th>
-                        <th><a href="editUser.php?id=<?php echo $res['AccountID'];?>#modal"><i class="fas fa-edit"></i></th>
-                        <th><a href="toggleBlockUser.php?id=<?php echo $res['AccountID'];?>"><i class="fas fa-ban"></i></a></th>
-                        <th><a href="removeUser.php?id=<?php echo $res['AccountID'];?>"><i class="fas fa-trash-alt"></i></th>
+                        <th><a href="editUser.php?id=<?php echo $res['AccountID'];?>#modal" class="userDashboardAction"><i class="fas fa-edit"></i>Editar</a></th>
+                        <th><a href="toggleBlockUser.php?id=<?php echo $res['AccountID'];?>" class="userDashboardAction"><i class="fas fa-ban"></i>
+                            <?php
+                                switch($res['Status']) {
+                                    case $ACCOUNT_BLOCKED: echo "Desbloquear"; break;
+                                    case $ACCOUNT_NORMAL: echo "Bloquear"; break;
+                                }
+                            ?>
+                        </a></th>
+                        <th><a href="removeUser.php?id=<?php echo $res['AccountID'];?>" class="userDashboardAction"><i class="fas fa-trash-alt"></i>Remover</a></th>
                     </tr>
                     <?php
                 }
