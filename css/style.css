@@ -59,9 +59,22 @@
     color:white;
 }
 
+.categoryBox {
+    width: 400px;
+    height: 450px;
+    left: -150px;
+    margin-left: 50%;
+    position: absolute;
+    background-color: rgba(46,46,46, .9);
+    top: -400px;
+    border-radius: 5px;
+    border:#595959;
+    color:white;
+}
+
 #modal:target ~ .userBox {
     transition: all .8s;
-    top: 150px;
+    top: 450px;
 }
 
 .in {
@@ -73,4 +86,27 @@
     font-family: sitkaSmall;
     font-size: 12pt;
     text-align: center;
+}
+
+.productBox {
+    width: 400px;
+    height: 450px;
+    left: -150px;
+    margin-left: 50%;
+    position: absolute;
+    background-color: rgba(46,46,46, .9);
+    top: 0px;
+    border-radius: 5px;
+    border:#595959;
+    color:white;
+}
+
+#modal:target ~ .productBox {
+    transition: all .8s;
+    top: -300px;
+}
+
+#modal:target ~ .categoryBox {
+    transition: all .8s;
+    top: 100px;
 }

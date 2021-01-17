@@ -15,9 +15,9 @@
             <div id="menu">
                 <div><img id="logo" onmouseover="this.src='img/Logo.png'" onmouseout="this.src='img/LogoDisabled.png'" src="img/Logo.png"></div>
                 <div class="flex-container">
-                    <a class="menuItem" id="btnOverview" href="overview.php" onmouseenter="btn_onMouseEnter(1);"><img id="imgOverview" src="img/overviewIcon.png">Vista Geral</a>
+                    <!-- <a class="menuItem" id="btnOverview" href="overview.php" onmouseenter="btn_onMouseEnter(1);"><img id="imgOverview" src="img/overviewIcon.png">Vista Geral</a>
                     <a class="menuItem" id="btnListUsers"><img id="imgListUsers" src="img/usersIcon.png">Ver Clientes</a>
-                    <a class="menuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</a>
+                    <a class="menuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</a> -->
                     <div id="authSection">
                         <p><a class="authItem" id="btnLogin" href="login.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login</a></p>
                         <a class="authItem" id="btnLogin" href="register.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Registar</a>

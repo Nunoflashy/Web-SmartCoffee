@@ -3,18 +3,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Smart Coffee - Adicionar Produto</title>
-
-    <?php
-        include('connectDB.php');
-    ?>
-
+    <title>Smart Coffee - Cafetaria</title>
 </head>
 <body>
-<div style="background-image: url('img/backgroundEditUser.png'); width:100%; height:100%; background-repeat: no-repeat;">
 <div id="modal"></div>
-    <div class="userBox">
-		<form method="POST" action="verifyProductInsertion.php">
+    <div class="categoryBox">
+		<form method="POST" action="">
             <center>
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
 			<p><input type="text" name="Name" placeholder="Nome" class="in"></p>

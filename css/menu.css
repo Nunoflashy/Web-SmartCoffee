@@ -41,6 +41,30 @@ a, a:hover, a:visited, a:link, a:active {
     cursor: pointer;
 }
 
+.customerMenuItem {
+    display: flex;
+    flex: 1 1;
+    font-family:sitkaSmall;
+    font-size:16pt;
+    color:white;
+    position: relative;
+    height:100px;
+    bottom:99px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.customerMenuItem:hover {
+    background-color:#595959;
+}
+
+.imgCustomerIcon {
+    width:37px;
+    height:32px;
+}
+
 #authSection {
     display: flex;
     top: 0;
