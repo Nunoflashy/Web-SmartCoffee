@@ -17,11 +17,11 @@
 		<form method="POST" action="verifyRegistration.php">
             <center>
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
-			<p><input type="text" name="name" placeholder="Nome" class="in"></p>
-            <p><input type="type" name="mail" placeholder="E-Mail" class="in"></p>
-            <p><input type="type" name="username" placeholder="Username" class="in"></p>
-            <p><input type="password" name="password" placeholder="Password" class="in"></p>
-            <p><input type="password" name="repass" placeholder="Confirmar Password" class="in"></p>
+			<p><input type="text" name="name" placeholder="Nome" class="in" required></p>
+            <p><input type="type" name="mail" placeholder="E-Mail" class="in" required></p>
+            <p><input type="type" name="username" placeholder="Username" class="in" required></p>
+            <p><input type="password" name="password" placeholder="Password" class="in" required></p>
+            <p><input type="password" name="repass" placeholder="Confirmar Password" class="in" required></p>
             <p><input type="submit" name="btnOK" id="btnOK" value="Finalizar Registo"></p>
             </center>
 		</form>

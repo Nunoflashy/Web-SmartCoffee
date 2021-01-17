@@ -5,19 +5,21 @@
     $password   = $_POST['password'];
     $repass     = $_POST['repass'];
 
+    include('connectDB.php');
+
     function isPasswordValid() {
+        global $password, $repass;
         return ($password == $repass);
     }
 
     function userExists($user) {
-        include('connectDB.php');
-        global $username;
-        $retval = mysqli_query($connection, "SELECT * FROM account WHERE Username='$username'");
+        global $connection;
+        $retval = mysqli_query($connection, "SELECT * FROM account WHERE Username='$user'");
         return mysqli_num_rows($retval);
     }
 
     function addUser($u, $n, $m, $p) {
-        include('connectDB.php');
+        global $connection;
         $hash = SHA1($p); //Hash pass
         $ACCOUNT_TYPE   = 1;
         $ACCOUNT_STATUS = 1;
@@ -26,7 +28,7 @@
     }
 
     function hasAdminAccount() {
-        include('connectDB.php');
+        global $connection;
         $ACCOUNT_ADMIN = 2;
         $retval = mysqli_query($connection, "SELECT * FROM account'");
         $res = mysqli_fetch_assoc($retval);

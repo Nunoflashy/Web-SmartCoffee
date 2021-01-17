@@ -27,7 +27,7 @@
             <center>
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
             <p style="font-family:sitkaSmall;">Editar Utilizador <br><?php echo $res['Username'];?></p>
-            <p><input type="text" name="userid" value="<?php echo $id;?>" class="in" readonly></p>
+            <p><input type="text" name="userid" value="ID: <?php echo $id;?>" class="in" readonly></p>
 			<p><input type="text" name="Name" value="<?php echo $res['Name'];?>" placeholder="Nome" class="in"></p>
             <p><input type="text" name="Mail" value="<?php echo $res['Mail'];?>" placeholder="E-Mail" class="in"></p>
             <p><input type="text" name="Username" value="<?php echo $res['Username'];?>" placeholder="Username" class="in"></p>
@@ -43,7 +43,7 @@
 
             <p><input type="password" name="Password" placeholder="Password" class="in"></p>
             <p><input type="password" name="repass" placeholder="Confirmar Password" class="in"></p>
-            <p><input type="submit" name="btnOK" id="btnOK" value="OK"></p>
+            <p><input type="submit" name="btnOK" id="btnOK" value="OK" class="in"></p>
             </center>
 		</form>
 	</div>

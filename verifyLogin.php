@@ -21,6 +21,13 @@
         return $res['Type'] == $ACCOUNT_ADMIN;
     }
 
+    if($username == "" || $password == "") {
+        $msg_title="Erro";
+        $msg_body = "Insira um username e uma password!";
+        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=index.php#modal");
+        return;
+    }
+
     if(isLoginSuccessful()) {
         if(isUserAdmin()) {
             header("location: listUsers.php");

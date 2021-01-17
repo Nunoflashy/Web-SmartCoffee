@@ -5,10 +5,6 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Smart Coffee - Adicionar Produto</title>
 
-    <?php
-        include('connectDB.php');
-    ?>
-
 </head>
 <body>
 <div style="background-image: url('img/backgroundEditUser.png'); width:100%; height:100%; background-repeat: no-repeat;">
