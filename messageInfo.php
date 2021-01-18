@@ -13,6 +13,7 @@
     ?>
 </head>
 <body>
+<div style="background-image: url('img/backgroundUsers.png'); width:100%; height:100%;">
 <div id="modal"></div>
     <div class="messageBox">
         <center>

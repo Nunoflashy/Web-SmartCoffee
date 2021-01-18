@@ -5,9 +5,12 @@
     <title>Smart Coffee - Editar Utilizador</title>
     <link rel="stylesheet" href="css/style.css">
 
-    <?php 
+    <?php
+        include_once('Util/UserUtils.php');
+        include_once('Util/AuthenticationManager.php');
+
         $id = $_GET['id'];
-        include('connectDB.php');
+        
         $resultado = mysqli_query($connection, "SELECT * FROM account a JOIN user u ON a.AccountID=u.AccountID WHERE a.AccountID=".$id."");
         $res = mysqli_fetch_assoc($resultado);
 
@@ -15,6 +18,12 @@
         $ACCOUNT_ADMIN    = 2;
 
         $accType = $res['Type'];
+
+        $isUserAdmin = UserUtils::IsAdmin(AuthenticationManager::AuthenticatedUser());
+        if(!$isUserAdmin) {
+            header("location: login.php#modal");
+            return;
+        }
     ?>
 
 </head>
@@ -30,7 +39,12 @@
             <p><input type="text" name="userid" value="ID: <?php echo $id;?>" class="in" readonly></p>
 			<p><input type="text" name="Name" value="<?php echo $res['Name'];?>" placeholder="Nome" class="in"></p>
             <p><input type="text" name="Mail" value="<?php echo $res['Mail'];?>" placeholder="E-Mail" class="in"></p>
-            <p><input type="text" name="Username" value="<?php echo $res['Username'];?>" placeholder="Username" class="in"></p>
+            <p><input type="text" name="Username" value="<?php echo $res['Username'];?>" placeholder="Username" class="in" 
+            <?php
+                // Definir como readonly se for o utilizador logado atualmente
+                include('Util/AuthenticationManager.php');
+                echo (AuthenticationManager::AuthenticatedUser() == $res['Username']) ? "readonly" : "";
+            ?> ></p>
             <div id="accTypeContainer" style="width:200px; height:100px; border-radius:5px; background-color:rgba(46,46,46,.8);">
                 <p style="font-family:sitkaSmall; font-size:10pt; padding-top:10px;"><b>Tipo de Conta</b></p>
                 <p>

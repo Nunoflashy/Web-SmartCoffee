@@ -1,43 +1,26 @@
 <?php
+    include_once('Util/UserUtils.php');
+    include_once('Util/AuthenticationManager.php');
+
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    function isLoginSuccessful() {
-        global $username, $password;
-        $hash = SHA1($password);
+    $auth = new AuthenticationManager($username, $password);
 
-        include('connectDB.php');
-        $retval = mysqli_query($connection, "SELECT * FROM account WHERE Username='$username' AND Password='$hash'");
-        return mysqli_num_rows($retval);
-    }
+    if($auth->isLoginSuccessful()) {
+        // Definir o user logado
+        $sql = mysqli_query($connection, "UPDATE account SET LoginCount=LoginCount+1 WHERE Username='$username' ");
+        mysqli_close($connection);
+        AuthenticationManager::SetAuthenticatedUser($username);
 
-    function isUserAdmin() {
-        global $username, $password;
-        include('connectDB.php');
-        $retval = mysqli_query($connection, "SELECT * FROM account WHERE Username='$username'");
-        $res = mysqli_fetch_assoc($retval);
-        $ACCOUNT_NORMAL = 1;
-        $ACCOUNT_ADMIN  = 2;
-        return $res['Type'] == $ACCOUNT_ADMIN;
-    }
-
-    if($username == "" || $password == "") {
-        $msg_title="Erro";
-        $msg_body = "Insira um username e uma password!";
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=index.php#modal");
-        return;
-    }
-
-    if(isLoginSuccessful()) {
-        if(isUserAdmin()) {
+        if(UserUtils::IsAdmin($username)) {
             header("location: listUsers.php");
         } else {
             header("location: showProducts.php");
         }
     } else {
         // Login falhado
-        $errorMsg = "O username ou a password estão incorretos.";
+        $errorMsg = $auth->getError();
         header("location: messageInfo.php?msg_title=Erro&msg_body=$errorMsg&ok_callback=index.php#modal");
-        //header("location: login.php#modal");
     }
 ?>

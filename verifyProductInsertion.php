@@ -1,6 +1,6 @@
 <?php
     $name           = $_POST['Name'];
-    $category       = $_POST['Category'];
+    $category       = $_POST['category'];
     $unitsInStock   = $_POST['UnitsInStock'];
     $price          = $_POST['Price'];
 

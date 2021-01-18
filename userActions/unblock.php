@@ -12,6 +12,7 @@
         mysqli_close($connection);
     }
 
+    // Desbloquear
     unblock();
 
     header("location: ../listUsers.php");

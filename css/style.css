@@ -3,6 +3,11 @@
     src: url('../font/sitkaI.ttc') format('truetype');
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 #usersTable, #productsTable {
     background-color:rgba(0, 0, 0, .8);
     border-radius:8px;
@@ -65,16 +70,17 @@
 
 .categoryBox {
     width: 800px;
-    height: 450px;
+    height: auto;
     left: -350px;
     right:-800px;
     margin-left: 50%;
     position: absolute;
     background-color: rgba(46,46,46, .9);
-    top: -400px;
+    top: -300px;
     border-radius: 5px;
     border:#595959;
     color:white;
+    overflow-y: hidden;
 }
 
 .messageBox {
@@ -85,6 +91,20 @@
     position: absolute;
     background-color: rgba(46,46,46, .9);
     top: -100px;
+    border-radius: 5px;
+    border:#595959;
+    color:white;
+}
+
+.receiptBox {
+    width: 400px;
+    height: auto;
+    left: -150px;
+    margin-left: 50%;
+    padding-bottom: 20px;
+    position: absolute;
+    background-color: rgba(46,46,46, .9);
+    top: 10px;
     border-radius: 5px;
     border:#595959;
     color:white;
@@ -115,6 +135,10 @@
     font-family: sitkaSmall;
     font-size: 12pt;
     text-align: center;
+}
+
+.in:read-only {
+    color: grey;
 }
 
 .productBox {

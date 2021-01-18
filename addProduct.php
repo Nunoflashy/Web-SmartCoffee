@@ -15,12 +15,12 @@
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
 			<p><input type="text" name="Name" placeholder="Nome" class="in"></p>
             <!-- <p><input type="text" name="Category" placeholder="Categoria" class="in"></p> -->
-            <p><select width="100" class="in">
+            <p><select name="category" width="100" class="in">
                 <option value="Cafetaria">Cafetaria</option>
-                <option value="Bakery">Pastelaria</option>
-                <option value="Savories">Salgados</option>
-                <option value="Drinks">Bebidas</option>
-                <option value="Technology">Tecnologia</option>
+                <option value="Pastelaria">Pastelaria</option>
+                <option value="Salgados">Salgados</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Tecnologia">Tecnologia</option>
             </select></p>
             <p><input type="number" name="UnitsInStock" value="1" placeholder="Unidades em Stock" class="in"></p>
             <p><input type="number" name="Price" value="1.00" step="0.1" placeholder="Preço" class="in"></p>

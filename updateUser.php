@@ -7,20 +7,14 @@
     $pass      = $_POST['Password'];
     $repass    = $_POST["repass"];
 
-    include('connectDB.php');
-
-    function userExists() {
-        global $connection, $username;
-        $retval = mysqli_query($connection, "SELECT * FROM account WHERE Username='$username'");
-        return mysqli_num_rows($retval);
-    }
+    include_once('Util/UserUtils.php');
 
     function hasPasswordUpdated() {
-        global $connection, $pass;
+        global $connection, $AccountID, $pass;
         $sql    = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
-        $retval = mysqli_fetch_assoc($sql);
-
-        return SHA1($retval['Password']) != SHA1($pass);
+        $res    = mysqli_fetch_assoc($sql);
+        
+        return $res['Password'] != SHA1($pass);
     }
 
     function isPasswordValid() {
@@ -28,12 +22,25 @@
         return $pass == $repass;
     }
 
-    // if(userExists()) {
-    //     $msg_title = "Erro";
-    //     $msg_body = sprintf("O utilizador %s (id:%d) já existe!", $username, $AccountID);
-    //     header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
-    //     return;
-    // }
+    function isPasswordEmpty() {
+        global $pass;
+        return $pass == "";
+    }
+
+    function hasUsernameChanged() {
+        global $connection;
+        global $username;
+        $sql = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
+        $res = mysqli_fetch_assoc($sql);
+        return $res['Username'] != $username;
+    }
+
+    if(UserUtils::Exists($username) && hasUsernameChanged()) {
+        $msg_title = "Ocorreu um erro!";
+        $msg_body = sprintf("O utilizador %s já existe!", $username);
+        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+        return;
+    }
 
     // Update User, Name, Mail
     mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
@@ -44,12 +51,19 @@
     mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
 
     // Update Pass
-    if(hasPasswordUpdated()) {
+    if(!isPasswordEmpty()) {
+        if(!hasPasswordUpdated()) {
+            // A password inserida é a mesma da DB
+            $msg_title = "Ocorreu um erro!";
+            $msg_body = "A password inserida é igual à que se encontra na base de dados!";
+            header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+            return;
+        }
         if(isPasswordValid()) {
             $hash = SHA1($pass);
             mysqli_query($connection, "UPDATE account SET Password='$hash' WHERE account.AccountID='$AccountID'");
         } else {
-            // Passwords invalidas
+            // Pass não coincide
             $msg_title = "Ocorreu um erro!";
             $msg_body = "As passwords não coincidem!";
             header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
@@ -58,12 +72,7 @@
         $msg_title = "Sucesso!";
         $msg_body = "A password foi alterada com sucesso!";
         header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
-    } else {
-        // A password inserida é a mesma da DB
-        $msg_title = "Ocorreu um erro!";
-        $msg_body = "A password inserida é igual à que se encontra na base de dados!";
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
     }
 
-    //header("location: listUsers.php");
+    header("location: listUsers.php");
 ?>

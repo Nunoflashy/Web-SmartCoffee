@@ -7,6 +7,8 @@
 
     <?php
         include('master.php');
+        include_once('Util/UserUtils.php');
+        include_once('Util/AuthenticationManager.php');
 
         //Type
         $ACCOUNT_CUSTOMER = 1;
@@ -14,6 +16,15 @@
         // Status
         $ACCOUNT_BLOCKED = 0;
         $ACCOUNT_NORMAL = 1;
+
+        // session_start();
+        $isUserAdmin = UserUtils::IsAdmin(AuthenticationManager::AuthenticatedUser());
+
+        if(!$isUserAdmin) {
+            header("location: login.php#modal");
+            return;
+        }
+
     ?>
 
 </head>
