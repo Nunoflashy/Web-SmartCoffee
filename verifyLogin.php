@@ -8,13 +8,15 @@
     $auth = new AuthenticationManager($username, $password);
 
     if($auth->isLoginSuccessful()) {
-        // Definir o user logado
-        $sql = mysqli_query($connection, "UPDATE account SET LoginCount=LoginCount+1 WHERE Username='$username' ");
-        mysqli_close($connection);
-        AuthenticationManager::SetAuthenticatedUser($username);
+        $AccountID = UserUtils::GetUserID($username);
+        // Atualizar LoginCount
+        UserUtils::ModLoginCount($AccountID);
 
-        if(UserUtils::IsAdmin($username)) {
-            header("location: listUsers.php");
+        // Definir o user logado
+        AuthenticationManager::SetAuthenticatedUser($username);
+        $isAdmin = UserUtils::IsAdmin($AccountID);
+        if($isAdmin) {
+            header("location: adminOverview.php");
         } else {
             header("location: showProducts.php");
         }

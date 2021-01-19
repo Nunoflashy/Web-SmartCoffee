@@ -1,37 +1,44 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='css/menu.css'>
     <link rel="stylesheet" type="text/css" href='css/footer.css'>
+    <link rel="icon" type="image/png" href="/overviewIcon.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <title>Smart Coffee</title>
 </head>
 
-<body onload="OnLoad();">
+<body>
     <header>
         <div>
             <div id="menu">
-                <div><img id="logo" onmouseover="this.src='img/Logo.png'" onmouseout="this.src='img/LogoDisabled.png'" src="img/Logo.png"></div>
+                <div><img id="logo" src="img/Logo.png" style="width: 128px; height: auto; margin-top:20px;"></div>
                 <div class="flex-container">
-                    <!-- <a class="menuItem" id="btnOverview" href="overview.php" onmouseenter="btn_onMouseEnter(1);"><img id="imgOverview" src="img/overviewIcon.png">Vista Geral</a>
-                    <a class="menuItem" id="btnListUsers"><img id="imgListUsers" src="img/usersIcon.png">Ver Clientes</a>
-                    <a class="menuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</a> -->
-                    <div id="authSection">
-                        <p><a class="authItem" id="btnLogin" href="login.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login</a></p>
-                        <p><a class="authItem" id="btnLogin" href="register.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Registar</a></p>
+                    <div class="authSection">
+                        <!-- <a class="authItem" id="btnLogin" href="login.php#modal">Login</a> -->
+                        <!-- <a class="authItem" id="btnRegister" href="register.php#modal">Registar</a> -->
+                        <!-- <a class="authItem" id="btnLogin" href="login.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login</a>
+                        <a class="authItem" id="btnRegister" href="register.php#modal"><i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Registar</a> -->
+                        <!-- <img src="img/user.png" class="authItem authIcon" style="border-radius:100px; width:32px; height:32px;"> -->
+                        <!-- <a href="userActions/logout.php" class="authItem" style="color:red;">
+                        <?php
+                            // session_start();
+                            // if(isset($_SESSION['loggedUser'])) {
+                            //     echo $_SESSION['loggedUser'];
+                            // }
+                        ?>
+                        </a> -->
+
                     </div> <!-- authSection -->
                 </div> <!-- flex-container -->
             </div> <!-- menu -->
-
-<!--             <div id="submenu">Submenu
-                <div class="submenuItem" id="btnManageUsers"><img id="imgManageUsers" src="img/settingsIcon.png">Gerir Produtos</div>
-            </div>   --><!-- submenu -->
         </div>
     </header>
 
-    <footer>
+    <!-- <footer>
         <div class="flex-container">
             <div class="f1">
                 <div id="copyrightFooter"><b>© Smart Coffee 2021</b></div>
@@ -57,11 +64,8 @@
                         </ul>
                 </div>
             </div>
-
-            
-
         </div>
-    </footer>
+    </footer> -->
 
 </body>
 </html>

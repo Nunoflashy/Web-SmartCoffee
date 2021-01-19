@@ -3,7 +3,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Coffee - Editar Utilizador</title>
-    <link rel="stylesheet" href="css/style.css">
 
     <?php
         include_once('Util/UserUtils.php');
@@ -19,7 +18,9 @@
 
         $accType = $res['Type'];
 
-        $isUserAdmin = UserUtils::IsAdmin(AuthenticationManager::AuthenticatedUser());
+        $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
+        $isUserAdmin    = UserUtils::IsAdmin($AccountID);
+        
         if(!$isUserAdmin) {
             header("location: login.php#modal");
             return;

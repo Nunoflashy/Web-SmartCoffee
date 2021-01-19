@@ -34,6 +34,15 @@
     foreach($products as &$p) {
         // Get units
         $units = OrderUtils::GetUnits($OrderID, $p);
+
+        // Atualizar stock
+        ProductUtils::ModStock($p, -$units);
+
+        // Cap stock
+        if(ProductUtils::GetStock($p) < 0) {
+            ProductUtils::SetStock($p, 0);
+        }
+
         $unitPrice = ProductUtils::GetPrice($p);
 
         $productPrice = number_format($units * $unitPrice, 2);

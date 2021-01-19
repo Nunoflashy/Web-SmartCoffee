@@ -16,7 +16,9 @@
         // Debug LoginCount
         echo $LoginCount;
 
-        $_SESSION['OrderID'] = (100 + $AccountID + $LoginCount);
+        // Formar o OrderID a partir destes valores
+        //$_SESSION['OrderID'] = (100 + $AccountID + $LoginCount);
+        $_SESSION['OrderID'] = OrderUtils::GetLastID() + 1;
         $OrderID = $_SESSION['OrderID'];
 
         $UnitPrice = $_SESSION['UnitPrice'];
@@ -25,9 +27,6 @@
         printf("OrderID: %s", $_SESSION['OrderID']);
 
         OrderUtils::AddProduct($OrderID, $ProductID, '1');
-        // $sql = mysqli_query($connection, "INSERT INTO `order details` (OrderID, ProductID, Units) VALUES('$OrderID', '$ProductID', '1')");
-
-        // mysqli_close($connection);
     }
 
     addProductToCustomer();

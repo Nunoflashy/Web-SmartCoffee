@@ -2,12 +2,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <title>Smart Coffee - Cafetaria</title>
 
     <?php
         include("showProducts.php");
-        include('connectDB.php');
+        include_once('Util/ProductUtils.php');
+
+        $CATEGORY = "Cafetaria";
+        $products = ProductUtils::GetAllIDFromCategory($CATEGORY);
     ?>
 
 </head>
@@ -20,22 +22,29 @@
             <p style="font-family: sitkaSmall;">Cafetaria</p>
             <table id="" style="font-family:sitkaSmall;">
             <?php
-                $CATEGORY = "Cafetaria";
-                $resultado = mysqli_query($connection, "SELECT * FROM product WHERE Category='$CATEGORY'");
-                while($res = mysqli_fetch_assoc($resultado)) {
-                    ?>
-                    <tr>
-                        <td><img class="usersImg" src="img/product.png"></td>
-                        <td><?php echo $res['Name'];?></td>
+                foreach($products as &$p) {
+                    $productId      = $p;
+                    $name           = ProductUtils::GetName($productId);
+                    $unitsInStock   = ProductUtils::GetStock($productId);
+                    $price          = number_format(ProductUtils::GetPrice($productId), 2);
+                    if(ProductUtils::GetStock($p) > 0) {
+            ?>
+                    <tr style="color:white;">
+                        <td><img class="usersImg" style="width:32px; height:auto;" src="img/category/coffeeIconCircle.png"></td>
+                        <td><?php echo $name;?></td>
                         <!-- <td><input type="number" name="quantity" class="in" style="width:40px;"></td> -->
-                        <td><?php echo number_format($res['UnitPrice'], 2);?>€</td>
-                        <td><a href="orderProduct.php?id=<?php echo $res['ProductID'];?>&category=<?php echo $CATEGORY;?>"><i class="fas fa-plus addProduct"></i></a></td>
+                        <td><?php echo $price;?>€</td>
+                        <td><a href="orderProduct.php?id=<?php echo $productId;?>&category=<?php echo $CATEGORY;?>"><i class="fas fa-plus addProduct"></i></a></td>
                     </tr>
-                    <?php
+            <?php
+                    }
                 }
             ?>
         </table>
-        <a href="checkoutOrder.php" style="margin-top:30px; bottom:0;" class="in">Finalizar Pedido</a>
+            <div style="color:white; font-family:sitkaSmall; font-size:16pt; background-color:rgba(46,46,46,.8); width:150px; border-radius:20px; padding: 5px 5px 5px 5px;">
+                <a href="checkoutOrder.php" class="fas fa-shopping-cart fa-1x" style="margin-top:5px;"></a><br>
+                <a href="checkoutOrder.php" style="font-size:12pt; color:white;">Finalizar Pedido</a>
+            </div>
             </center>
 		</form>
 	</div>

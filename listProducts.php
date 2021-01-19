@@ -2,19 +2,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <title>Smart Coffee - Produtos</title>
 
     <?php
-        include('master.php');
-    ?>
+        include('main.php');
+        include('adminMenu.php');
+        include('Util/ProductUtils.php');
 
+        $products = ProductUtils::GetAllID();
+    ?>
 </head>
 
 <body>
     <div style="background-image: url('img/backgroundUsers.png'); width:100%; height:100%;">
     <center>
-        <!-- <div style="width:100%; height:100%; background-color: black; opacity: 0.5; position:absolute;"></div> -->
+        <div class="adminCategory">
+            <img src="img/forkKnife.png" class="adminCategoryImg"><br>Gerir Produtos
+        </div>
         <table id="productsTable">
             <thead>
                 <th></th>
@@ -27,27 +31,44 @@
                 <th></th>
             </thead>
             <?php
-                include('connectDB.php');
-                $resultado = mysqli_query($connection, "SELECT * FROM product");
-                while($res = mysqli_fetch_assoc($resultado)) {
-                    ?>
+                foreach($products as &$p) {
+                    $productId = $p;
+                    $name       = ProductUtils::GetName($p);
+                    $category   = ProductUtils::GetCategory($p);
+                    $units      = ProductUtils::GetStock($p);
+                    $price      = number_format(ProductUtils::GetPrice($p), 2);
+            ?>
                     <tr>
-                        <td><img class="usersImg" src="img/product.png"></td>
-                        <td><?php echo $res['ProductID'];?></td>
-                        <td><?php echo $res['Name'];?></td>
-                        <td><?php echo $res['Category'];?></td>
-                        <td><?php echo $res['UnitsInStock'];?></td>
-                        <td><?php echo number_format($res['UnitPrice'], 2);?>€</td>
-                        <td><a class="" href="editProduct.php?id=<?php echo $res['ProductID'];?>"><i class="fas fa-edit"></i></td>
-                        <td><a class="" href="removeProduct.php?id=<?php echo $res['ProductID'];?>"><i class="fas fa-trash-alt"></i></td>
+                        <td><img class="usersImg" src="
+                            <?php
+                                switch($category) {
+                                    case "Cafetaria":   echo 'img/category/coffeeIconCircle.png'; break;
+                                    case "Pastelaria":  echo 'img/category/breadIconCircle.png'; break;
+                                    case "Salgados":    echo 'img/category/savoriesIconCircle.png'; break;
+                                    case "Bebidas":     echo 'img/category/drinksIconCircle.png'; break;
+                                    case "Tecnologia":  echo 'img/category/technologyIconCircle.png'; break;
+                                }
+                            ?>" style="width:32px; height:auto;">
+                        </td>
+                        <td style="text-align:center;"><?php echo $productId;?></td>
+                        <td style="text-align:center;"><?php echo $name;?></td>
+                        <td style="text-align:center;"><?php echo $category;?></td>
+                        <td style="text-align:center;"><?php echo $units;?></td>
+                        <td style="text-align:center;"><?php echo $price;?>€</td>
+                        <td><a class="userDashboardAction" href="editProduct.php?id=<?php echo $productId;?>#modal"><i class="fas fa-edit"></i>Editar</a></td>
+                        <td><a class="userDashboardAction" href="removeProduct.php?id=<?php echo $productId;?>"><i class="fas fa-trash-alt"></i>Remover</a></td>
                     </tr>
                     <?php
                 }
             ?>
             <tr>
-                <td><a href="addProduct.php#modal"><i class="fas fa-plus addProduct"></i></a></td>
+                <!-- <td><a href="addProduct.php#modal" style="justify-content:center;"><i class="fas fa-plus addProduct"></i></a></td> -->
             </tr>
         </table>
+        <div style="color:white; font-family:sitkaSmall; font-size:16pt; background-color:rgba(46,46,46,.8); width:150px; border-radius:50px; margin-top:30px;">
+            <a href="addProduct.php#modal" class="fas fa-plus-circle fa-1x" style="margin-top:5px;"></a><br>
+            <a href="addProduct.php#modal" style="font-size:12pt; color:white;">Adicionar</a>
+        </div>
     </center>
 </body>
 </html>

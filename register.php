@@ -5,8 +5,8 @@
     <link rel="stylesheet" type="text/css" href='css/auth.css'>
     <title>Smart Coffee - Registar</title>
 
-    <?php 
-        include('master.php');
+    <?php
+        include('main.php');
     ?>
 
 </head>

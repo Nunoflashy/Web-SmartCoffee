@@ -35,12 +35,12 @@
         return $res['Username'] != $username;
     }
 
-    if(UserUtils::Exists($username) && hasUsernameChanged()) {
-        $msg_title = "Ocorreu um erro!";
-        $msg_body = sprintf("O utilizador %s já existe!", $username);
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
-        return;
-    }
+    // if(UserUtils::Exists($username) && hasUsernameChanged()) {
+    //     $msg_title = "Ocorreu um erro!";
+    //     $msg_body = sprintf("O utilizador %s já existe!", $username);
+    //     header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+    //     return;
+    // }
 
     // Update User, Name, Mail
     mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
