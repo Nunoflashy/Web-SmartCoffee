@@ -26,6 +26,12 @@ if(!class_exists("ProductUtils")) {
             $res = mysqli_fetch_assoc($sql);
             return $res['Name'];
         }
+        static function GetID($name) {
+            global $connection;
+            $sql = mysqli_query($connection, "SELECT * FROM product WHERE Name='$name'");
+            $res = mysqli_fetch_assoc($sql);
+            return $res['ProductID'];
+        }
 
         static function GetAllID() {
             global $connection;
@@ -64,6 +70,12 @@ if(!class_exists("ProductUtils")) {
             $sql = mysqli_query($connection, "DELETE FROM product WHERE ProductID='$ProductID'");
             echo mysqli_error($connection);
             mysqli_close($connection);
+        }
+
+        static function Exists($name) {
+            global $connection;
+            $sql = mysqli_query($connection, "SELECT * FROM product WHERE Name='$name'");
+            return mysqli_num_rows($sql);
         }
     }
 }

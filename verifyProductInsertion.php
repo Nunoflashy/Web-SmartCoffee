@@ -4,17 +4,12 @@
     $unitsInStock   = $_POST['UnitsInStock'];
     $price          = $_POST['Price'];
 
-    include('connectDB.php');
+    include_once('Util/ProductUtils.php');
 
-    function productExists() {
-        global $name;
-        $sql = mysqli_query($connection, "SELECT * FROM product WHERE Name='$name'");
-        return mysqli_num_rows($sql);
-    }
 
-    if(productExists()) {
+    if(ProductUtils::Exists($name)) {
         $msg_title = "Erro";
-        $msg_body = sprintf("O produto %s já existe!\n", $name);
+        $msg_body = sprintf("O produto %s já existe!", $name);
         header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listProducts.php#modal");
         return;
     }

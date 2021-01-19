@@ -172,6 +172,10 @@ if(!class_exists("UserUtils")) {
             return $res['ImgPath'];
         }
 
+        static function HasAvatar($AccountID) {
+            return UserUtils::GetAvatar($AccountID) != '';
+        }
+
         static function UpdateUserType($AccountID, $accType) {
             global $connection;
             $sql = mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
