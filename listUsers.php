@@ -51,9 +51,13 @@
                 include('connectDB.php');
                 $resultado = mysqli_query($connection, "SELECT * FROM account a JOIN user u ON a.AccountID=u.AccountID");
                 while($res = mysqli_fetch_assoc($resultado)) {
+                    $id = $res['AccountID'];
+                    $avatar = UserUtils::GetAvatar($id);
+                    // Fallback avatar
+                    if($avatar == '') $avatar = "img/avatars/avatar.jpg";
                     ?>
                     <tr>
-                        <td><img class="usersImg" src="img/userIconCircle2.png" style="width:32px; height:auto;"></td>
+                        <td><img src="<?php echo $avatar; ?>" style="width:24px; height:24px; border-radius:50px;"></td>
                         <td style="text-align:center;"><?php echo $res['AccountID']; ?></td>
                         <td style="text-align:center;"><?php echo $res['Username']; ?></td>
                         <td style="text-align:center;"><?php echo $res['Name']; ?></td>

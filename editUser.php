@@ -60,10 +60,16 @@
 
             <!-- Avatar -->
             <p style="font-family:sitkaSmall; font-size:10pt;">
-                Avatar:
-                <label for="avatar" class="in" style="margin-top:-5px;font-size:10pt;color:white;">Escolher</label>
+                <label for="avatar" class="in" style="margin-top:-5px;font-size:10pt;color:white;">Escolher Avatar</label>
                 <input name="avatar" id="avatar" type="file" accept="image/*" hidden>
             </p>
+            <?php
+                $avatar = UserUtils::GetAvatar($id);
+                // Fallback avatar
+                if($avatar == 'NULL') $avatar = "img/avatars/avatar.jpg";
+            ?>
+            <!-- Mostrar avatar -->
+            <img src="<?php echo $avatar; ?>" style="width:48px; height:48px; border-radius:50px;">
             <!-- End Avatar -->
 
             <p><input type="password" name="Password" placeholder="Password" class="in"></p>

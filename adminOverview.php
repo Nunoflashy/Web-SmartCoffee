@@ -12,21 +12,6 @@
         include('Util/ProductUtils.php');
         include_once('Util/AuthenticationManager.php');
 
-        $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
-        $isUserAdmin    = UserUtils::IsAdmin($AccountID);
-
-        // Se nao estiver logado
-        if(!$AccountID) {
-            header("location: login.php#modal");
-            return;
-        }
-        
-        // Se nao for admin
-        if(!$isUserAdmin) {
-            header("location: showProducts.php");
-            return;
-        }
-
         $lastUserId     = UserUtils::GetLastUserID();
         $lastUsername   = UserUtils::GetUserByID($lastUserId);
         $users          = UserUtils::GetAllUsersID();

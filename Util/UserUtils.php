@@ -171,6 +171,12 @@ if(!class_exists("UserUtils")) {
             $res = mysqli_fetch_assoc($sql);
             return $res['ImgPath'];
         }
+
+        static function UpdateUserType($AccountID, $accType) {
+            global $connection;
+            $sql = mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
+            mysqli_close($connection);
+        }
     }
 }
 ?>

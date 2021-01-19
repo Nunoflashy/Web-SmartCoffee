@@ -16,7 +16,7 @@
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
             <p style="font-family:sitkaSmall;">Adicionar Produto</p>
 			<p><input type="text" name="Name" placeholder="Nome" class="in" required></p>
-            <p><select name="category" class="in">
+            <p><select name="category" class="in" style="width:200px;">
                 <option value="Cafetaria">Cafetaria</option>
                 <option value="Pastelaria">Pastelaria</option>
                 <option value="Salgados">Salgados</option>

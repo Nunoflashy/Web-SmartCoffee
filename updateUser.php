@@ -47,10 +47,15 @@
     mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
     mysqli_query($connection, "UPDATE user SET Name='$name' WHERE user.AccountID='$AccountID'");
     mysqli_query($connection, "UPDATE user SET Mail='$mail' WHERE user.AccountID='$AccountID'");
-    UserUtils::SetAvatar($AccountID, $avatar);
+    
+    // Nao atualizar avatar se nao for escolhido nenhum
+    if($avatar) {
+        UserUtils::SetAvatar($AccountID, $avatar);
+    }
 
     // Update Tipo
-    mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
+    //mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
+    UserUtils::UpdateUserType($AccountID, $accType);
 
     // Update Pass
     if(!isPasswordEmpty()) {

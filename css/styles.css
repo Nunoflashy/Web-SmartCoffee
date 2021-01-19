@@ -32,6 +32,7 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 /* Menu */
+
 .menuItem {
     display: flex;
     flex: 1 1;
@@ -198,4 +199,11 @@ a, a:hover, a:visited, a:link, a:active {
 
 .userDashboardAction {
     color: white;
+}
+
+@media only screen and (min-width: 1024px) {
+    /* .flex-container { */
+        /* display: none; */
+        /* flex-wrap:wrap; */
+    /* } */
 }
