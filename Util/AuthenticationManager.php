@@ -66,9 +66,28 @@ if(!class_exists("AuthenticationManager")) {
             $_SESSION['loggedUser'] = $u;
         }
         public static function AuthenticatedUser() {
-            if(!isset($_SESSION['loggedUser']))
+            $loggedUser = null;
+            if(!isset($_SESSION)) {
                 session_start();
-            return $_SESSION['loggedUser'];
+            }
+            if(isset($_SESSION['loggedUser'])) {
+                $loggedUser = $_SESSION['loggedUser'];
+            }
+            return $loggedUser;
+        }
+
+        public static function IsUserLoggedIn() {
+            return AuthenticationManager::AuthenticatedUser() != null;
+        }
+
+        public static function Logout() {
+            if(session_id() != '') {
+                session_destroy();
+            } else {
+                session_start();
+                $_SESSION = array();
+                session_destroy();
+            }
         }
     }
 }

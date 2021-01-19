@@ -74,9 +74,4 @@
     
     // Mostrar talao
     header("location: orderReceipt.php?OrderID=$OrderID&ProductIDList=$productIdList&UnitsOfEachProduct=$unitsOfEachProduct&OrderDate=$datetime#modal");
-        
-    
-
-    // mysqli_query($connection, "INSERT INTO orders (OrderID, AccountID, EmployeeID, OrderDate, Total) VALUES('$OrderID', '$AccountID', '1', '$datetime', '4')");
-    // mysqli_close($connection);
 ?>

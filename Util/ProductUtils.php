@@ -1,5 +1,5 @@
 <?php
-    include('connectDB.php');
+    include(dirname(__DIR__).'/connectDB.php');
 if(!class_exists("ProductUtils")) {
     class ProductUtils {
         static function GetPrice($ProductID) {
@@ -57,6 +57,13 @@ if(!class_exists("ProductUtils")) {
             $currentStock = ProductUtils::GetStock($ProductID);
             $newStock = $currentStock + $x;
             $sql = mysqli_query($connection, "UPDATE product SET UnitsInStock='$newStock' WHERE ProductID='$ProductID'");
+        }
+
+        static function RemoveProduct($ProductID) {
+            global $connection;
+            $sql = mysqli_query($connection, "DELETE FROM product WHERE ProductID='$ProductID'");
+            echo mysqli_error($connection);
+            mysqli_close($connection);
         }
     }
 }

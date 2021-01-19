@@ -1,5 +1,5 @@
 <?php
-    include('master.php');
+    include('main.php');
 ?>
 
 <html lang="en">

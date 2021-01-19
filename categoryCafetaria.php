@@ -41,10 +41,18 @@
                 }
             ?>
         </table>
+            <?php 
+                if($products != null) {
+            ?>
             <div style="color:white; font-family:sitkaSmall; font-size:16pt; background-color:rgba(46,46,46,.8); width:150px; border-radius:20px; padding: 5px 5px 5px 5px;">
                 <a href="checkoutOrder.php" class="fas fa-shopping-cart fa-1x" style="margin-top:5px;"></a><br>
                 <a href="checkoutOrder.php" style="font-size:12pt; color:white;">Finalizar Pedido</a>
             </div>
+            <?php
+                } else {
+                    echo '<a style="font-family: sitkaSmall;">Atualmente não se encontra nenhum produto em stock.</a>';
+                }
+            ?>
             </center>
 		</form>
 	</div>

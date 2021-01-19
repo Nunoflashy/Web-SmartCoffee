@@ -1,19 +1,7 @@
 <?php
-    include('../connectDB.php');
-    
-    // ID a remover
+    include_once('../Util/UserUtils.php');
+
     $AccountID = $_GET['AccountID'];
-
-    function removeUser() {
-        global $connection, $AccountID;
-        $sql = "DELETE a, u FROM account a JOIN user u ON a.AccountID=u.AccountID WHERE a.AccountID=$AccountID";
-        mysqli_query($connection, $sql);
-        mysqli_close($connection);
-    }
-    
-    // Remover o user
-    removeUser();
-
-    // Redirect
+    UserUtils::RemoveUser($AccountID);
     header("location: ../listUsers.php");
 ?>

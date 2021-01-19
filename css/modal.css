@@ -71,6 +71,11 @@
     top: 50px;
 }
 
+#modal:target ~ .productBox {
+    transition: all .8s;
+    top: 50px;
+}
+
 #modal:target ~ .categoryBox {
     transition: all .8s;
     top: 120px;
@@ -108,9 +113,4 @@
     border-radius: 5px;
     border:#595959;
     color:white;
-}
-
-#modal:target ~ .productBox {
-    transition: all .8s;
-    top: -300px;
 }

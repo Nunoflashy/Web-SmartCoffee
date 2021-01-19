@@ -1,3 +1,21 @@
+<?php
+    include_once('Util/AuthenticationManager.php');
+    $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
+    $isUserAdmin    = UserUtils::IsAdmin($AccountID);
+
+    // Se nao estiver logado
+    if(!$AccountID) {
+        header("location: login.php#modal");
+        return;
+    }
+    
+    // Se for admin
+    if($isUserAdmin) {
+        header("location: adminOverview.php");
+        return;
+    }
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

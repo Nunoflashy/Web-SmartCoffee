@@ -10,7 +10,7 @@
 <body>
 <div style="background-image: url('img/backgroundEditUser.png'); width:100%; height:100%; background-repeat: no-repeat;">
 <div id="modal"></div>
-    <div class="userBox">
+    <div class="productBox">
 		<form method="POST" action="verifyProductInsertion.php">
             <center>
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">

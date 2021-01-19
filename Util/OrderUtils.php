@@ -1,5 +1,5 @@
 <?php
-    include('connectDB.php');
+    include(dirname(__DIR__).'/connectDB.php');
 
     class OrderUtils {
         static function GetProducts($OrderID) {

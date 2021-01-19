@@ -13,7 +13,7 @@
         return;
     }
 
-    $msg_title = sprintf("Remover Utilizador id:%d", $AccountID);
+    $msg_title = sprintf("Remover Utilizador %s (id:%d)", UserUtils::GetUsername($AccountID), $AccountID);
     $msg_body = sprintf("Tem a certeza que quer remover o utilizador?");
 
     // Action para remover o user

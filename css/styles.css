@@ -107,9 +107,41 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 .authIcon {
+    position: relative;
+    margin-left: 20px;
+    margin-top: 10px;
+    width:50px;
+    height:50px;
+    border-radius:50px;
+}
+
+.authUsername {
     position: absolute;
-    margin-left: 150px;
-    margin-top: -55px;
+    margin-top: -35px;
+    margin-left: 80px;
+    width: auto;
+    padding: 5px 15px 5px 15px;
+    border-radius:10px;
+    background-color: transparent;
+}
+
+.authLogout {
+    position: absolute;
+    right:6;
+    background-color:rgba(10,10,10,.4);
+    padding: 5px 10px 5px 10px;
+    margin-top:-10px;
+    width:70px;
+    height:auto;
+    border-radius:10px;
+    font-family:sitkaSmall;
+    font-size:10pt;
+    color:white;
+
+}
+
+.fa-sign-out-alt {
+    padding-left:5px;
 }
 /* End Auth */
 

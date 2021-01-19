@@ -2,6 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+    <link rel="stylesheet" type="text/css" href='css/modal.css'>
     <title>Smart Coffee - Editar Utilizador</title>
 
     <?php
@@ -55,6 +57,14 @@
                     <label for="2">Administrador</label>
                 </p>
             </div>
+
+            <!-- Avatar -->
+            <p style="font-family:sitkaSmall; font-size:10pt;">
+                Avatar:
+                <label for="avatar" class="in" style="margin-top:-5px;font-size:10pt;color:white;">Escolher</label>
+                <input name="avatar" id="avatar" type="file" accept="image/*" hidden>
+            </p>
+            <!-- End Avatar -->
 
             <p><input type="password" name="Password" placeholder="Password" class="in"></p>
             <p><input type="password" name="repass" placeholder="Confirmar Password" class="in"></p>

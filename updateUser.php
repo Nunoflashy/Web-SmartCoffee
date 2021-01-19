@@ -5,7 +5,8 @@
     $mail      = $_POST['Mail'];
     $accType   = $_POST['accType'];
     $pass      = $_POST['Password'];
-    $repass    = $_POST["repass"];
+    $repass    = $_POST['repass'];
+    $avatar    = $_POST['avatar'];
 
     include_once('Util/UserUtils.php');
 
@@ -46,6 +47,7 @@
     mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
     mysqli_query($connection, "UPDATE user SET Name='$name' WHERE user.AccountID='$AccountID'");
     mysqli_query($connection, "UPDATE user SET Mail='$mail' WHERE user.AccountID='$AccountID'");
+    UserUtils::SetAvatar($AccountID, $avatar);
 
     // Update Tipo
     mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");

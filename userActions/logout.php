@@ -1,9 +1,8 @@
 <?php
-
-    session_start();
-    if(isset($_SESSION['loggedUser'])) {
-        unset($_SESSION['loggedUser']);
-        header("location: ../index.php");
-        session_destroy();
-    }
+    include_once(dirname(__DIR__).'/Util/AuthenticationManager.php');
+    AuthenticationManager::Logout();
+    
+    // Redirect
+    $index = '../index.php';
+    header("location:".$index);
 ?>
