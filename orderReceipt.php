@@ -13,8 +13,7 @@
         $OrderID            = $_GET['OrderID'];
         $ProductIDList      = Util::ArrayFromURL($_GET['ProductIDList']);
         $UnitsOfEachProduct = Util::ArrayFromURL($_GET['UnitsOfEachProduct']);
-        $OrderDate          = $_GET['OrderDate'];
-        
+        $OrderDate          = $_GET['OrderDate'];  
     ?>
 </head>
 <body>
@@ -47,13 +46,18 @@
         </table>
         <!-- ------------------- -->
         <p style="font-family:sitkaSmall;">TOTAL: <?php
-            $total = 0;
-            $productCount = 0;
-            foreach($ProductIDList as &$p) {
-                $total += ($UnitsOfEachProduct[$productCount] * ProductUtils::GetPrice($p));
-                $productCount++;
+            function getTotalPrice() {
+                global $ProductIDList, $UnitsOfEachProduct;
+                $total = 0;
+                $productIndex = 0;
+                foreach($ProductIDList as &$p) {
+                    $total += ($UnitsOfEachProduct[$productIndex] * ProductUtils::GetPrice($p));
+                    $productIndex++;
+                }
+                return $total;
             }
-            echo $total;
+
+            echo getTotalPrice();
         ?>€</p>
         <p style="font-family:sitkaSmall;">Data: <?php echo $OrderDate;?></p>
         <a href="showProducts.php" style="width:200px; height:50px; font-family:sitkaSmall;" class="in">OK</a>
