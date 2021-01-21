@@ -31,6 +31,7 @@
     function hasUsernameChanged() {
         global $connection;
         global $username;
+        global $AccountID;
         $sql = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
         $res = mysqli_fetch_assoc($sql);
         return $res['Username'] != $username;
@@ -44,9 +45,17 @@
     // }
 
     // Update User, Name, Mail
-    mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
+    // if(!UserUtils::Exists($username) && UserUtils::GetUserID($AccountID) == $AccountID) {
+        mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
+    // } else {
+    //     $msg_title = "Ocorreu um erro!";
+    //     $msg_body = "O username inserido já se encontra registado!";
+    //     header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+    //     return;
+    // }
     mysqli_query($connection, "UPDATE user SET Name='$name' WHERE user.AccountID='$AccountID'");
     mysqli_query($connection, "UPDATE user SET Mail='$mail' WHERE user.AccountID='$AccountID'");
+    //UserUtils::SetPassword($AccountID, $pass);
     
     // Nao atualizar avatar se nao for escolhido nenhum
     if($avatar) {

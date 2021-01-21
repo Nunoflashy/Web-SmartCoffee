@@ -22,8 +22,8 @@
         <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
         <p style="font-family:sitkaSmall;"><?php echo $msg_title;?></p>
         <p style="font-family:sitkaSmall;"><?php echo $msg_body;?></p>
-        <a href="<?php echo $yes_callback;?>" style="width:200px; height:50px; font-family:sitkaSmall;" class="in">Sim</a>
-        <a href="<?php echo $no_callback;?>" style="width:200px; height:50px; font-family:sitkaSmall;" class="in">Não</a>
+        <a href="<?php echo $yes_callback;?>" class="in" style="color:white; padding:10px 10px 10px 10px; width:200px; height:50px; font-family:sitkaSmall;" >Sim</a>
+        <a href="<?php echo $no_callback;?>" class="in" style="color:white; padding:10px 10px 10px 10px; width:200px; width:200px; height:50px; font-family:sitkaSmall;" >Não</a>
         </center>
 	</div>
 </body>

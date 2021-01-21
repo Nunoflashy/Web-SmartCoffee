@@ -32,7 +32,7 @@
     <div style="top:0; background-image: url('img/backgroundUsers.png'); width:100%; height:100%;">
     <center>
         <div class="adminCategory">
-            <img src="img/usersIcon.png" style="width:auto; height:auto; margin-left:1vh; padding-top:5px; padding-bottom: 5px;"><br>Ver Utilizadores
+            <img src="img/usersIcon.png" style="width:auto; height:auto; margin-left:1vh; padding-top:5px; padding-bottom: 5px;"><br>Gerir Utilizadores
         </div>
         <table id="usersTable">
             <thead>

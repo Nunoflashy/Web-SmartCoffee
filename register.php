@@ -3,12 +3,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='css/auth.css'>
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+    <link rel="stylesheet" type="text/css" href='css/modal.css'>
     <title>Smart Coffee - Registar</title>
-
-    <?php
-        include('main.php');
-    ?>
-
 </head>
 <body>
 <div style="background-image: url('img/background.jpg'); width:100%; height:100%;">
@@ -22,7 +19,7 @@
             <p><input type="type" name="username" placeholder="Username" class="in" required></p>
             <p><input type="password" name="password" placeholder="Password" class="in" required></p>
             <p><input type="password" name="repass" placeholder="Confirmar Password" class="in" required></p>
-            <p><input type="submit" name="btnOK" id="btnOK" value="Finalizar Registo"></p>
+            <p><input type="submit" name="btnOK" id="btnOK" value="Finalizar Registo" class="in"></p>
             </center>
 		</form>
 	</div>

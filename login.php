@@ -16,7 +16,7 @@
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
 			<p><input type="text" name="username" placeholder="Login" class="in"></p>
 			<p><input type="password" name="password" placeholder="Password" class="in"></p>
-            <p class="btn2"><input type="submit" name="btn_modal" value="Iniciar Sessão" ></p>
+            <p class="btn2"><input type="submit" name="btn_modal" value="Iniciar Sessão" class="in"></p>
             </center>
 		</form>
 	</div>

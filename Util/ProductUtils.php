@@ -18,13 +18,13 @@ if(!class_exists("ProductUtils")) {
             global $connection;
             $sql = mysqli_query($connection, "SELECT * FROM product WHERE ProductID='$ProductID' ");
             $res = mysqli_fetch_assoc($sql);
-            return $res['Category'];
+            return $res['Category'] ?? "";
         }
         static function GetName($ProductID) {
             global $connection;
             $sql = mysqli_query($connection, "SELECT * FROM product WHERE ProductID='$ProductID' ");
             $res = mysqli_fetch_assoc($sql);
-            return $res['Name'];
+            return $res['Name'] ?? "";
         }
         static function GetID($name) {
             global $connection;
@@ -54,12 +54,12 @@ if(!class_exists("ProductUtils")) {
         }
 
         static function SetStock($ProductID, $x) {
-            include('connectDB.php');
+            global $connection;
             $sql = mysqli_query($connection, "UPDATE product SET UnitsInStock='$x' WHERE ProductID='$ProductID'");
         }
 
         static function ModStock($ProductID, $x) {
-            include('connectDB.php');
+            global $connection;
             $currentStock = ProductUtils::GetStock($ProductID);
             $newStock = $currentStock + $x;
             $sql = mysqli_query($connection, "UPDATE product SET UnitsInStock='$newStock' WHERE ProductID='$ProductID'");
@@ -68,14 +68,21 @@ if(!class_exists("ProductUtils")) {
         static function RemoveProduct($ProductID) {
             global $connection;
             $sql = mysqli_query($connection, "DELETE FROM product WHERE ProductID='$ProductID'");
-            echo mysqli_error($connection);
-            mysqli_close($connection);
         }
 
         static function Exists($name) {
             global $connection;
             $sql = mysqli_query($connection, "SELECT * FROM product WHERE Name='$name'");
             return mysqli_num_rows($sql);
+        }
+        static function GetCategoryImage($ProductID) {
+            switch(self::GetCategory($ProductID)) {
+                case "Cafetaria":  return 'img/category/coffeeIconCircle.png';
+                case "Pastelaria": return 'img/category/breadIconCircle.png';
+                case "Salgados":   return 'img/category/savoriesIconCircle.png';
+                case "Bebidas":    return 'img/category/drinksIconCircle.png';
+                case "Tecnologia": return 'img/category/technologyIconCircle.png';
+            }
         }
     }
 }

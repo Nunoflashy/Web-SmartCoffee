@@ -25,10 +25,11 @@
 </head>
 <body>
     <div id="menu">
-        <div class="flex-container" style="margin-left:70vh;">
+        <div class="flex-container" style="margin-left:50vh;">
         <a href="adminOverview.php" class="adminMenuItem" style="font-size: 12pt;"><img class="adminItemIcon" src="img/overview.png">Vista Geral</a>
-        <a href="listUsers.php" class="adminMenuItem" style="font-size: 12pt;"><img class="adminItemIcon" src="img/usersIcon.png">Ver Utilizadores</a>
-        <a href="listProducts.php" class="adminMenuItem" style="font-size: 12pt;"><img class="adminItemIcon" src="img/settingsIcon.png">Gerir Produtos</a>
+        <a href="listUsers.php" class="adminMenuItem" style="font-size: 12pt;"><img class="adminItemIcon" src="img/usersIcon.png">Gerir Utilizadores</a>
+        <a href="listProducts.php" class="adminMenuItem" style="font-size: 12pt;"><img class="adminItemIcon" src="img/forkKnife.png">Gerir Produtos</a>
+        <a href="listOrders.php" class="adminMenuItem" style="font-size: 12pt;"><img class="adminItemIcon" src="img/orders.png">Ver Pedidos</a>
     </div>
 </body>
 </html>

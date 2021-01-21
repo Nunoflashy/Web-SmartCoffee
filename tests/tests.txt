@@ -1,0 +1,30 @@
+        <div id="productsTable" style="position:relative; left: 0;margin-left: 20vh; margin-right:20vh; background-color:transparent;">
+            <table>
+                <?php
+                include_once('Util/ProductUtils.php');
+                $products = ProductUtils::GetAllID();
+                for($x = 0; $x <= 4; $x++) {
+                    $name     = ProductUtils::GetName($products[$x]);
+                    $category = ProductUtils::GetCategory($products[$x]);
+                ?>
+                <tr>
+                    <?php
+                    for($y = 0; $y < 4; $y++){
+                    ?>
+                    <td>
+                        <!-- Inserir produto aqui -->
+                        <div class="adminCategory" style="background-color:rgba(80,80,80,.7); width:200px; position: relative;">
+                            <img src="img/category/cafetariaIcon.png" style="width:48px; height:auto; position:relative; margin-bottom:20px; left:40%;"><br>
+                            <i style="position:relative; left:40%; width:auto; font-size:14pt;"><?php echo $name;?></i><br>
+                            <i style="position:relative; left:30%; width:auto; font-size:10pt;">Categoria: <?php echo $category;?></i>
+                        </div>
+                    </td>
+                    <?php
+                    }
+                    ?>
+                </tr>
+                <?php
+                }
+                ?>
+            </table>
+        </div>

@@ -70,6 +70,12 @@
     $unitsOfEachProduct     = Util::ArrayToURL($UnitsOfEachProduct);
     $orderTotalCostProducts = Util::ArrayToURL($orderTotalCostProducts);
 
+    // Session
+    session_start();
+    $_SESSION['ProductIDList'] = $ProductIDList;
+    $_SESSION['UnitsOfEachProduct'] = $UnitsOfEachProduct;
+    $_SESSION['OrderDate'] = $datetime;
+
     echo $orderTotalCostProducts;
     
     // Mostrar talao

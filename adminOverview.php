@@ -6,10 +6,10 @@
     <title>Smart Coffee - Vista Geral</title>
 
     <?php
-        include('main.php');
-        include('adminMenu.php');
-        include('Util/UserUtils.php');
-        include('Util/ProductUtils.php');
+        include_once('main.php');
+        include_once('adminMenu.php');
+        include_once('Util/UserUtils.php');
+        include_once('Util/ProductUtils.php');
         include_once('Util/AuthenticationManager.php');
 
         $lastUserId     = UserUtils::GetLastUserID();
@@ -27,7 +27,7 @@
 
 </head>
 <body>
-<div style="background-image: url('img/backgroundUsers.png'); width:100%; height:200%; padding-top: 0px;">
+<div style="background-image: url('img/backgroundUsers.png'); width:100%; height:auto; padding-top: 0px;">
     <center>
         <div class="adminCategory">
             <img src="img/overview.png" style="width:64px; height:auto; margin-left:1vh;"><br>Vista Geral
@@ -56,9 +56,10 @@
                         $accStatus      = UserUtils::GetAccountStatus($accountId);
                         $registerDate   = UserUtils::GetRegisterDate($accountId);
                         $loginCount     = UserUtils::GetLoginCount($accountId);
+                        $avatar         = UserUtils::GetAvatar($accountId);
                 ?>
                     <tr class="tableText" style="font-size:10pt;">
-                        <td><img class="usersImg" src="img/userIconCircle2.png" style="width:32px; height:auto;"></td>
+                        <td><img class="usersImg" src="<?php echo $avatar; ?>" style="width:24px; height:24px; border-radius:50px;"></td>
                         <td style="text-align:center;"><?php echo $u;?></td>
                         <td style="text-align:center;"><?php echo $username;?></td>
                         <td style="text-align:center;"><?php echo $name;?></td>
@@ -107,12 +108,45 @@
                         $price     = number_format(ProductUtils::GetPrice($productId), 2);
                 ?>
                     <tr class="tableText" style="font-size: 10pt;">
-                        <td><img class="usersImg" src="img/productsIconCircle.png" style="width:32px; height:auto;"></td>
+                        <td><img class="usersImg" src="<?php echo ProductUtils::GetCategoryImage($productId); ?>" style="width:32px; height:auto;"></td>
                         <td style="text-align:center;"><?php echo $productId;?></td>
                         <td style="text-align:center;"><?php echo $name;?></td>
                         <td style="text-align:center;"><?php echo $category;?></td>
                         <td style="text-align:center;"><?php echo $units;?></td>
                         <td style="text-align:center;"><?php echo $price;?>€</td>
+                    </tr>
+                <?php
+                    }
+                ?>
+            </table>
+        </div>
+        <div id="productsTable" style="margin-left: 50vh; margin-right:50vh; padding-bottom:20px;">
+            <img style="justify-content:center; width:48px; height:auto;"class="" src="img/orders.png">
+            <p style="font-family:sitkaSmall; font-size:12pt;">Pedidos</p>
+            <table>
+                <thead class="tableText">
+                    <th></th>
+                    <th>OrderID</th>
+                    <th>Cliente</th>
+                    <th>Data Efetuado</th>
+                    <th>Preço</th>
+                </thead>
+                <?php
+                    include_once('Util/OrderUtils.php');
+                    $orders = OrderUtils::GetAllID();
+                    foreach($orders as &$o) {
+                        $orderId = $o;
+                        $accountId = OrderUtils::GetCustomer($o);
+                        $customerName = UserUtils::GetUsername($accountId);
+                        $orderDate = OrderUtils::GetDate($o);
+                        $orderTotal = OrderUtils::GetTotal($o);
+                ?>
+                    <tr class="tableText" style="font-size: 10pt;">
+                        <td><img class="usersImg" src="img/orders.png" style="width:24px; height:auto;"></td>
+                        <td style="text-align:center;"><?php echo $orderId;?></td>
+                        <td style="text-align:center;"><?php echo $customerName;?></td>
+                        <td style="text-align:center;"><?php echo $orderDate;?></td>
+                        <td style="text-align:center;"><?php echo $orderTotal;?>€</td>
                     </tr>
                 <?php
                     }

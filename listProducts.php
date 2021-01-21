@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div style="background-image: url('img/backgroundUsers.png'); width:100%; height:100%;">
+    <div style="background-image: url('img/backgroundUsers.png'); width:100%; height:auto;">
     <center>
         <div class="adminCategory">
             <img src="img/forkKnife.png" class="adminCategoryImg"><br>Gerir Produtos
@@ -39,16 +39,7 @@
                     $price      = number_format(ProductUtils::GetPrice($p), 2);
             ?>
                     <tr>
-                        <td><img class="usersImg" src="
-                            <?php
-                                switch($category) {
-                                    case "Cafetaria":   echo 'img/category/coffeeIconCircle.png'; break;
-                                    case "Pastelaria":  echo 'img/category/breadIconCircle.png'; break;
-                                    case "Salgados":    echo 'img/category/savoriesIconCircle.png'; break;
-                                    case "Bebidas":     echo 'img/category/drinksIconCircle.png'; break;
-                                    case "Tecnologia":  echo 'img/category/technologyIconCircle.png'; break;
-                                }
-                            ?>" style="width:32px; height:auto;">
+                        <td><img class="usersImg" src="<?php echo ProductUtils::GetCategoryImage($productId); ?>" style="width:32px; height:auto;">
                         </td>
                         <td style="text-align:center;"><?php echo $productId;?></td>
                         <td style="text-align:center;"><?php echo $name;?></td>

@@ -1,5 +1,6 @@
 <?php
     include(dirname(__DIR__).'/connectDB.php');
+
 if(!class_exists("UserUtils")) {
     class UserUtils {
         static function IsBlocked($username) {
@@ -39,10 +40,9 @@ if(!class_exists("UserUtils")) {
         }
 
         static function SetAdmin($username) {
-            include('connectDB.php');
+            global $connection;
             $ACCOUNT_ADMIN = 2;
             $sql = mysqli_query($connection, "UPDATE account SET Type='$ACCOUNT_ADMIN' WHERE Username='$username'");
-            mysqli_close($connection);
         }
 
         static function GetUserByID($AccountID) {
@@ -136,13 +136,11 @@ if(!class_exists("UserUtils")) {
             $datetime = date_create()->format('Y-m-d H:i:s');
             mysqli_query($connection, "INSERT INTO account(Username, Password, Type, Status) VALUES('$username', '$hash', '$ACCOUNT_TYPE', '$ACCOUNT_STATUS') ");
             mysqli_query($connection, "INSERT INTO user(Name, Mail, RegisterDate) VALUES('$name', '$mail', '$datetime') ");
-            mysqli_close($connection);
         }
 
         static function ModLoginCount($AccountID) {
             include('connectDB.php');
             $sql = mysqli_query($connection, "UPDATE account SET LoginCount=LoginCount+1 WHERE AccountID='$AccountID'");
-            mysqli_close($connection);
         }
 
         static function Exists($username) {
@@ -154,7 +152,6 @@ if(!class_exists("UserUtils")) {
         static function RemoveUser($AccountID) {
             global $connection;
             $sql = mysqli_query($connection, "DELETE a, u FROM account a JOIN user u ON a.AccountID=u.AccountID WHERE a.AccountID=$AccountID");
-            mysqli_close($connection);
         }
 
         static function SetAvatar($AccountID, $avatarImg) {
@@ -162,14 +159,20 @@ if(!class_exists("UserUtils")) {
             $avatarDir = "img/avatars";
             $avatar = sprintf("%s/%s", $avatarDir, $avatarImg);
             $sql = mysqli_query($connection, "UPDATE user SET ImgPath='$avatar' WHERE AccountID='$AccountID'");
-            mysqli_close($connection);
         }
 
         static function GetAvatar($AccountID) {
             global $connection;
             $sql = mysqli_query($connection, "SELECT ImgPath FROM user WHERE AccountID='$AccountID'");
             $res = mysqli_fetch_assoc($sql);
-            return $res['ImgPath'];
+            $avatar = $res['ImgPath'];
+            
+            // Sem avatar
+            if($avatar == '') {
+                $avatar = "img/avatars/avatar.jpg";
+            }
+
+            return $avatar;
         }
 
         static function HasAvatar($AccountID) {
@@ -179,7 +182,26 @@ if(!class_exists("UserUtils")) {
         static function UpdateUserType($AccountID, $accType) {
             global $connection;
             $sql = mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
-            mysqli_close($connection);
+        }
+
+        static function SetPassword($AccountID, $Password) {
+            global $connection;
+            $hash = SHA1($Password);
+            $sql = mysqli_query($connection, "UPDATE account SET Password='$hash' WHERE AccountID='$AccountID'");
+        }
+
+        static function BlockUser($AccountID) {
+            global $connection;
+            $ACCOUNT_BLOCKED = 0;
+            $ACCOUNT_NORMAL  = 1;
+            $sql = mysqli_query($connection, "UPDATE account SET Status='$ACCOUNT_BLOCKED' WHERE account.AccountID='$AccountID'");
+        }
+
+        static function UnblockUser($AccountID) {
+            global $connection;
+            $ACCOUNT_BLOCKED = 0;
+            $ACCOUNT_NORMAL  = 1;
+            $sql = mysqli_query($connection, "UPDATE account SET Status='$ACCOUNT_NORMAL' WHERE account.AccountID='$AccountID'");
         }
     }
 }

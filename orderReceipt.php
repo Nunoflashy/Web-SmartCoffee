@@ -14,6 +14,7 @@
         $ProductIDList      = Util::ArrayFromURL($_GET['ProductIDList']);
         $UnitsOfEachProduct = Util::ArrayFromURL($_GET['UnitsOfEachProduct']);
         $OrderDate          = $_GET['OrderDate'];
+        
     ?>
 </head>
 <body>
@@ -60,3 +61,7 @@
 	</div>
 </body>
 </html>
+
+<?php
+    unset($_SESSION['ProductIDList']);
+?>

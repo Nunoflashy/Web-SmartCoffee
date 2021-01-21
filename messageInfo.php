@@ -21,7 +21,7 @@
         <img src="img/logoSmall.png" style="opacity: .1; margin-top:10px; width: 64px;">
         <p style="font-family:sitkaSmall;"><?php echo $msg_title;?></p>
         <p style="font-family:sitkaSmall;"><?php echo $msg_body;?></p>
-        <a href="<?php echo $ok_callback;?>" style="width:100px; height:30px;" class="in">OK</a>
+        <a href="<?php echo $ok_callback;?>" style="color:white; padding:10px 10px 10px 10px; width:100px; height:30px;" class="in">OK</a>
         </center>
 	</div>
 </body>

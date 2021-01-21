@@ -16,6 +16,13 @@
             UserUtils::SetAdmin($username);
         }
 
+        include_once('sendMail.php');
+        sendMail(
+            $mail,
+            sprintf("Bem-Vindo ao Smart Coffee %s!", $name),
+            sprintf("A sua conta %s foi registada no nosso sistema com sucesso!\nPode agora efetuar o login e começar a pesquisar o nosso catálogo!", $username)
+        );
+
         // Redirect login
         header("location: login.php#modal");
     } else {

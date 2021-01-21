@@ -10,14 +10,23 @@
 <body>
     <header>
         <div id="menu">
-            <div><img id="logo" src="img/Logo.png" style="width: 128px; height: auto; margin-top:20px;"></div>
+            <a href="index.php"><img id="logo" src="img/Logo.png" style="width: 128px; height: auto; margin-top:20px;"></a>
             <div class="authSection">
                 <?php
                     include('Util/AuthenticationManager.php');
                     $username = AuthenticationManager::AuthenticatedUser();
                     // Sem Login
                     if(!AuthenticationManager::IsUserLoggedIn()) {
-                        echo '<a class="authItem" id="btnLogin" href="login.php#modal">Login</a>';
+                        $loginAction    = "login.php#modal";
+                        $registerAction = "register.php#modal";
+                ?>
+                        <div class="authLogout" style="position:relative; text-align:center; width:140px; left:10%; top:20;"><a href="<?php echo $loginAction;?>" class="fas fa-sign-in-alt"></a>
+                            <a href="<?php echo $loginAction;?>" style="color: white;">Login</a>
+                        </div>
+                        <div class="authLogout" style="position:relative; text-align:center; width:140px; left:10%; top:40;"><a href="<?php echo $registerAction;?>" class="fas fa-user-plus"></a>
+                            <a href="<?php echo $registerAction;?>" style="color: white;">Registar</a>
+                        </div>
+                <?php
                     } else {
                     // Com Login
                         $AccountID = UserUtils::GetUserID($username);
@@ -26,7 +35,7 @@
                         $avatar = UserUtils::GetAvatar($AccountID);
 
                         // Fallback avatar
-                        if($avatar == 'NULL') $avatar = "img/avatars/avatar.jpg";
+                        if($avatar == '') $avatar = "img/avatars/avatar.jpg";
                         
                         echo sprintf('<a href="%s"><img src="%s" class="authItem authIcon"></a>',
                                     $redirectAction, $avatar);

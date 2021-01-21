@@ -25,11 +25,19 @@
 
         // Debug OrderID
         printf("OrderID: %s", $_SESSION['OrderID']);
-
-        OrderUtils::AddProduct($OrderID, $ProductID, '1');
+        
+        if(OrderUtils::ProductExists($OrderID, $ProductID)) {
+            OrderUtils::ModQuantity($OrderID, $ProductID, 1);
+            
+        } else {
+            OrderUtils::AddProduct($OrderID, $ProductID, '1');
+            array_push($_SESSION['ProductIDList'], $ProductID);
+        }
+        array_push($_SESSION['UnitsOfEachProduct'], 1);
     }
 
     addProductToCustomer();
+    
 
     // Redirecionar para a categoria certa
     header("location: category$Category.php#modal");

@@ -65,10 +65,6 @@
             </p>
             <?php
                 $avatar = UserUtils::GetAvatar($id);
-                // Fallback avatar
-                if(!UserUtils::HasAvatar($id)) {
-                    $avatar = "img/avatars/avatar.jpg";
-                }
             ?>
             <!-- Mostrar avatar -->
             <img src="<?php echo $avatar; ?>" style="width:48px; height:48px; border-radius:50px;">
