@@ -17,7 +17,7 @@
         $mailer->SMTPAuth = true;
         $mailer->SMTPSecure = 'tls';
         $mailer->Username = 'nunoduquenunes@gmail.com';
-        $mailer->Password = 'Coiinhas1996';
+        $mailer->Password = '';
         $mailer->Port = 587;
         $mailer->isHTML(true);
         $mailer->setFrom('nunoduquenunes@gmail.com', 'Smart Coffee');
