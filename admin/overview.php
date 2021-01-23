@@ -6,11 +6,11 @@
     <title>Smart Coffee - Vista Geral</title>
 
     <?php
-        include_once('main.php');
-        include_once('adminMenu.php');
-        include_once('Util/UserUtils.php');
-        include_once('Util/ProductUtils.php');
-        include_once('Util/AuthenticationManager.php');
+        include_once(dirname(__DIR__).'/main.php');
+        include_once(dirname(__DIR__).'/adminMenu.php');
+        include_once(dirname(__DIR__).'/Util/UserUtils.php');
+        include_once(dirname(__DIR__).'/Util/ProductUtils.php');
+        include_once(dirname(__DIR__).'/Util/AuthenticationManager.php');
 
         $lastUserId     = UserUtils::GetLastUserID();
         $lastUsername   = UserUtils::GetUserByID($lastUserId);
@@ -53,7 +53,7 @@
                         $name           = UserUtils::GetName($accountId);
                         $mail           = UserUtils::GetMail($accountId);
                         $accType        = UserUtils::GetAccountType($accountId);
-                        $isBlocked      = UserUtils::IsBlocked($username);
+                        $accStatus      = UserUtils::GetAccountStatus($accountId);
                         $registerDate   = UserUtils::GetRegisterDate($accountId);
                         $loginCount     = UserUtils::GetLoginCount($accountId);
                         $avatar         = UserUtils::GetAvatar($accountId);
@@ -64,10 +64,20 @@
                         <td style="text-align:center;"><?php echo $username;?></td>
                         <td style="text-align:center;"><?php echo $name;?></td>
                         <td style="text-align:center;"> <!-- Tipo de Conta -->
-                            <?php echo $accType == $ACCOUNT_ADMIN ? "Administrador" : "Cliente";?>
+                            <?php
+                                switch($accType) {
+                                    case $ACCOUNT_CUSTOMER: echo "Cliente"; break;
+                                    case $ACCOUNT_ADMIN: echo "Administrador"; break;
+                                }
+                            ?>
                         </td>
                         <td style="text-align:center;"> <!-- Estado da Conta -->
-                            <?php echo $isBlocked ? "Bloqueada" : "Normal";?>
+                            <?php
+                                switch($accStatus) {
+                                    case $ACCOUNT_BLOCKED: echo "Bloqueada"; break;
+                                    case $ACCOUNT_NORMAL: echo "Normal"; break;
+                                }
+                            ?>
                         </td>
                         <td style="text-align:center;"><?php printf("%s", $registerDate);?></td>
                         <td style="text-align:center;"><?php printf("%s", $loginCount);?></td>
@@ -110,11 +120,6 @@
                 ?>
             </table>
         </div>
-        <?php
-        include_once('Util/OrderUtils.php');
-        $orders = OrderUtils::GetAllID();
-        if(sizeof($orders) != 0) {
-        ?>
         <div id="productsTable" style="margin-left: 50vh; margin-right:50vh; padding-bottom:20px;">
             <img style="justify-content:center; width:48px; height:auto;"class="" src="img/orders.png">
             <p style="font-family:sitkaSmall; font-size:12pt;">Pedidos</p>
@@ -127,12 +132,14 @@
                     <th>Preço</th>
                 </thead>
                 <?php
+                    include_once('../Util/OrderUtils.php');
+                    $orders = OrderUtils::GetAllID();
                     foreach($orders as &$o) {
-                        $orderId        = $o;
-                        $accountId      = OrderUtils::GetCustomer($o);
-                        $customerName   = UserUtils::GetUsername($accountId);
-                        $orderDate      = OrderUtils::GetDate($o);
-                        $orderTotal     = OrderUtils::GetTotal($o);
+                        $orderId = $o;
+                        $accountId = OrderUtils::GetCustomer($o);
+                        $customerName = UserUtils::GetUsername($accountId);
+                        $orderDate = OrderUtils::GetDate($o);
+                        $orderTotal = OrderUtils::GetTotal($o);
                 ?>
                     <tr class="tableText" style="font-size: 10pt;">
                         <td><img class="usersImg" src="img/orders.png" style="width:24px; height:auto;"></td>
@@ -143,7 +150,6 @@
                     </tr>
                 <?php
                     }
-                }
                 ?>
             </table>
         </div>

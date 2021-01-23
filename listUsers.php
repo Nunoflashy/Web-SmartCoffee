@@ -53,8 +53,6 @@
                 while($res = mysqli_fetch_assoc($resultado)) {
                     $id = $res['AccountID'];
                     $avatar = UserUtils::GetAvatar($id);
-                    // Fallback avatar
-                    if($avatar == '') $avatar = "img/avatars/avatar.jpg";
                     ?>
                     <tr>
                         <td><img src="<?php echo $avatar; ?>" style="width:24px; height:24px; border-radius:50px;"></td>

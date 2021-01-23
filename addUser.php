@@ -1,3 +1,5 @@
+<?php require 'admin/permissions.php'; ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -5,20 +7,6 @@
     <title>Smart Coffee - Adicionar Utilizador</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/modal.css">
-
-    <?php
-        include_once('Util/UserUtils.php');
-        include_once('Util/AuthenticationManager.php');
-
-        $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
-        $isUserAdmin    = UserUtils::IsAdmin($AccountID);
-
-        if(!$isUserAdmin) {
-            header("location: login.php#modal");
-            return;
-        }
-    ?>
-
 </head>
 
 <body>

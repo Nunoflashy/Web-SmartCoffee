@@ -9,6 +9,8 @@
     $avatar    = $_POST['avatar'];
 
     include_once('Util/UserUtils.php');
+    include_once('Util/MessageBox.php');
+    
 
     function hasPasswordUpdated() {
         global $connection, $AccountID, $pass;
@@ -28,21 +30,69 @@
         return $pass == "";
     }
 
-    function hasUsernameChanged() {
-        global $connection;
-        global $username;
-        global $AccountID;
-        $sql = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
-        $res = mysqli_fetch_assoc($sql);
-        return $res['Username'] != $username;
+    function existsOtherSameUsername() {
+        global $connection, $username;
+        $sql = mysqli_query($connection, "SELECT Username FROM account WHERE Username='$username'");
+        $usernameList = array();
+        while($res = mysqli_fetch_assoc($sql)) {
+            array_push($usernameList, $res['Username']);
+        }
+        return sizeof($usernameList) > 1;
     }
 
-    // if(UserUtils::Exists($username) && hasUsernameChanged()) {
-    //     $msg_title = "Ocorreu um erro!";
-    //     $msg_body = sprintf("O utilizador %s já existe!", $username);
-    //     header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
-    //     return;
+    // function hasUsernameUpdated() {
+    //     global $connection;
+    //     global $AccountID, $username;
+    //     $sql = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
+    //     $res = mysqli_fetch_assoc($sql);
+    //     $thisUser   = $res['Username'];
+    //     $thisUserID = $res['AccountID'];
+
+    //     $usernameList = array();
+    //     $sql = mysqli_query($connection, "SELECT * FROM account WHERE Username='$username'");
+    //     while($res = mysqli_fetch_assoc($sql)) {
+    //         array_push($usernameList, $res['Username']);
+    //     }
+
+    //     foreach($usernameList as &$user) {
+    //         $otherUserID = UserUtils::GetUserByID($user);
+    //         if($thisUserID == $otherUserID) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
     // }
+
+    function existsSameUsername() {
+        global $AccountID;
+        $users  = UserUtils::GetAllUsersID();
+        $thisID         = $AccountID;
+        $thisUsername   = UserUtils::GetUsername($AccountID);
+        printf("This ID: %d\nThis Username: %s<br><br>", $thisID, $thisUsername);
+        foreach($users as &$uid) {
+            $id         = $uid;
+            $username   = UserUtils::GetUsername($uid);
+            printf("AccountID: %d\nUsername: %s<br>", $id, $username);
+            if(($username == $thisUsername) && $thisID != $id) {
+                printf("<br>Found matching username!<br>");
+                //return true;
+            }
+        }
+        //die();
+        //return false;
+    }
+    existsSameUsername();
+
+    // die(hasUsernameUpdated());
+
+    if(existsSameUsername()) {
+        MessageBox::InfoMessage(
+            "Ocorreu um erro",
+            sprintf("O utilizador %s já existe!", $username),
+            $ok_callback = "listUsers.php"
+        )->show();
+        return;
+    }
 
     // Update User, Name, Mail
     // if(!UserUtils::Exists($username) && UserUtils::GetUserID($AccountID) == $AccountID) {
@@ -70,19 +120,24 @@
     if(!isPasswordEmpty()) {
         if(!hasPasswordUpdated()) {
             // A password inserida é a mesma da DB
-            $msg_title = "Ocorreu um erro!";
-            $msg_body = "A password inserida é igual à que se encontra na base de dados!";
-            header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+            MessageBox::InfoMessage(
+                "Ocorreu um erro!",
+                "A password inserida é igual à que se encontra na base de dados!",
+                $ok_callback = "listUsers.php"
+            )->show();
             return;
         }
         if(isPasswordValid()) {
-            $hash = SHA1($pass);
-            mysqli_query($connection, "UPDATE account SET Password='$hash' WHERE account.AccountID='$AccountID'");
+            // $hash = SHA1($pass);
+            // mysqli_query($connection, "UPDATE account SET Password='$hash' WHERE account.AccountID='$AccountID'");
+            UserUtils::SetPassword($AccountID, $pass);
         } else {
             // Pass não coincide
-            $msg_title = "Ocorreu um erro!";
-            $msg_body = "As passwords não coincidem!";
-            header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+            MessageBox::InfoMessage(
+                "Ocorreu um erro!",
+                "As passwords não coincidem!",
+                $ok_callback = "listUsers.php"
+            )->show();
             return;
         }
         $msg_title = "Sucesso!";

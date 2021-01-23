@@ -28,13 +28,7 @@
             include('connectDB.php');
             $sql = mysqli_query($connection, "UPDATE orders SET Total='$Total' WHERE OrderID='$OrderID'");
         }
-        // static function GetTotal($OrderID, $ProductIDList) : float {
-        //     $total = 0;
-        //     foreach($ProductIDList as &$p) {
-        //         $total += (OrderUtils::GetUnits($OrderID, $p) * ProductUtils::GetPrice($p));
-        //     }
-        //     return $total;
-        // }
+
         static function AddOrder($OrderID, $AccountID, $OrderDate) {
             include('connectDB.php');
             mysqli_query($connection, "INSERT INTO orders (OrderID, AccountID, EmployeeID, OrderDate) VALUES('$OrderID', '$AccountID', '1', '$OrderDate')");
@@ -92,6 +86,11 @@
             $sql = mysqli_query($connection, "SELECT Total FROM orders WHERE OrderID='$OrderID'");
             $res = mysqli_fetch_assoc($sql);
             return $res['Total'];
+        }
+        
+        static function RemoveOrder($OrderID) {
+            global $connection;
+            $sql = mysqli_query($connection, "DELETE FROM orders WHERE OrderID='$OrderID'");
         }
     }
 ?>

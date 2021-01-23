@@ -10,6 +10,7 @@
     <?php
         include_once('Util/Utils.php');
         include_once('Util/ProductUtils.php');
+        include_once('Util/OrderUtils.php');
         $OrderID            = $_GET['OrderID'];
         $ProductIDList      = Util::ArrayFromURL($_GET['ProductIDList']);
         $UnitsOfEachProduct = Util::ArrayFromURL($_GET['UnitsOfEachProduct']);
@@ -39,7 +40,7 @@
                         <td><?php echo (ProductUtils::GetPrice($p) * $UnitsOfEachProduct[$productCount]);?>€</td>
                     </tr>
                 <?php
-                $productCount++;
+                    $productCount++;
                 }
                 
             ?>

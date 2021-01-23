@@ -2,6 +2,7 @@
     include_once('Util/AuthenticationManager.php');
     include_once('Util/UserUtils.php');
     include_once('Util/OrderUtils.php');
+    include_once('Util/ProductUtils.php');
 
     $ProductID = $_GET['id'];
     $Category  = $_GET['category'];
@@ -27,13 +28,16 @@
         printf("OrderID: %s", $_SESSION['OrderID']);
         
         if(OrderUtils::ProductExists($OrderID, $ProductID)) {
-            OrderUtils::ModQuantity($OrderID, $ProductID, 1);
+            if(ProductUtils::GetStock($ProductID) > 0) {
+                OrderUtils::ModQuantity($OrderID, $ProductID, 1);
+                array_push($_SESSION['UnitsOfEachProduct'], 1);
+            }
             
         } else {
             OrderUtils::AddProduct($OrderID, $ProductID, '1');
             array_push($_SESSION['ProductIDList'], $ProductID);
         }
-        array_push($_SESSION['UnitsOfEachProduct'], 1);
+        
     }
 
     addProductToCustomer();

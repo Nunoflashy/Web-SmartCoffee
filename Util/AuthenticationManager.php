@@ -1,5 +1,5 @@
 <?php
-    include_once('UserUtils.php');
+    include_once(dirname(__DIR__).'/Util/UserUtils.php');
 if(!class_exists("AuthenticationManager")) {
     class AuthenticationManager {
         private ?string $username = null;

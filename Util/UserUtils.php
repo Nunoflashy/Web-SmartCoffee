@@ -14,7 +14,7 @@ if(!class_exists("UserUtils")) {
         }
 
         static function IsAdmin($AccountID) {
-            include('connectDB.php');
+            global $connection;
             $sql = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
 
             if(!$sql) {
@@ -129,7 +129,7 @@ if(!class_exists("UserUtils")) {
         }
 
         static function AddUser($username, $name, $mail, $password) {
-            include('connectDB.php');
+            global $connection;
             $hash = SHA1($password);
             $ACCOUNT_TYPE   = 1;
             $ACCOUNT_STATUS = 1;
@@ -139,7 +139,7 @@ if(!class_exists("UserUtils")) {
         }
 
         static function ModLoginCount($AccountID) {
-            include('connectDB.php');
+            global $connection;
             $sql = mysqli_query($connection, "UPDATE account SET LoginCount=LoginCount+1 WHERE AccountID='$AccountID'");
         }
 
@@ -188,6 +188,13 @@ if(!class_exists("UserUtils")) {
             global $connection;
             $hash = SHA1($Password);
             $sql = mysqli_query($connection, "UPDATE account SET Password='$hash' WHERE AccountID='$AccountID'");
+        }
+
+        static function GetPasswordHash($AccountID) {
+            global $connection;
+            $sql = mysqli_query($connection, "SELECT Password FROM account WHERE AccountID='$AccountID'");
+            $res = mysqli_fetch_assoc($sql);
+            return $res;
         }
 
         static function BlockUser($AccountID) {
