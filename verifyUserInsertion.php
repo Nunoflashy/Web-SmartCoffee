@@ -1,5 +1,7 @@
+<?php require 'admin/permissions.php'; ?>
 <?php
     include_once('Util/RegistrationManager.php');
+    include_once('Util/MessageBox.php');
 
     $name       = $_POST['name'];
     $mail       = $_POST['mail'];
@@ -7,23 +9,25 @@
     $password   = $_POST['password'];
     $repass     = $_POST['repass'];
     $accType    = $_POST['accType'];
-
-    $ACCOUNT_NORMAL = 1;
-    $ACCOUNT_ADMIN = 2;
+    $avatar     = $_POST['avatar'];
 
     $reg = new RegistrationManager($name, $mail, $username, $password, $repass);
 
     if($reg->isRegistrationSuccessful()) {
         UserUtils::AddUser($username, $name, $mail, $password);
 
-        if($accType == $ACCOUNT_ADMIN) {
+        if($accType == UserUtils::$ACCOUNT_ADMIN) {
             UserUtils::SetAdmin($username);
+        }
+
+        if($avatar) {
+            // Novo registo, portanto este user é o ultimo id
+            $thisUserID = UserUtils::GetLastUserID();
+            UserUtils::SetAvatar($thisUserID, $avatar);
         }
 
         header("location: listUsers.php");
     } else {
-        $msg_title = "Erro ao adicionar utilizador!";
-        $msg_body = $reg->getError();
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
+        MessageBox::InfoMessage("Erro ao adicionar utilizador!", $reg->getError(), $ok_callback = "listUsers.php")->show();
     }
 ?>

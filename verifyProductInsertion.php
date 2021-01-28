@@ -1,3 +1,4 @@
+<?php require 'admin/permissions.php'; ?>
 <?php
     $name           = $_POST['Name'];
     $category       = $_POST['category'];
@@ -5,12 +6,11 @@
     $price          = $_POST['Price'];
 
     include_once('Util/ProductUtils.php');
+    include_once('Util/MessageBox.php');
 
 
     if(ProductUtils::Exists($name)) {
-        $msg_title = "Erro";
-        $msg_body = sprintf("O produto %s já existe!", $name);
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listProducts.php#modal");
+        MessageBox::InfoMessage("Erro", sprintf("O produto %s já existe!", $name), $ok_callback = "listProducts.php")->show();
         return;
     }
 

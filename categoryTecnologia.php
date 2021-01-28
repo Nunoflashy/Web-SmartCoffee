@@ -5,8 +5,10 @@
         <title>Smart Coffee - Cafetaria</title>
         
     <?php
-        include("showProducts.php");
+        include_once("showProducts.php");
         include_once('Util/ProductUtils.php');
+        include_once('Util/OrderUtils.php');
+        include_once('Util/Utils.php');
 
         $CATEGORY = "Tecnologia";
         $products = ProductUtils::GetAllIDFromCategory($CATEGORY);
@@ -27,29 +29,30 @@
                     $name           = ProductUtils::GetName($productId);
                     $unitsInStock   = ProductUtils::GetStock($productId);
                     $price          = number_format(ProductUtils::GetPrice($productId), 2);
-                    if(ProductUtils::GetStock($p) > 0) {
-                    ?>
-                    <tr style="color:white;">
-                        <td><img class="usersImg" style="width:32px; height:auto;" src="img/category/technologyIconCircle.png"></td>
-                        <td><?php echo $name;?></td>
-                        <!-- <td><input type="number" name="quantity" class="in" style="width:40px;"></td> -->
-                        <td><?php echo $price;?>€</td>
-                        <td><a href="orderProduct.php?id=<?php echo $productId;?>&category=<?php echo $CATEGORY;?>"><i class="fas fa-plus addProduct"></i></a></td>
-                    </tr>
-                    <?php
+                    
+                    if(Util::IsProductAvailableToOrder(Util::GetOrderID(), $productId)) {
+                        ?>
+                        <tr style="color:white;">
+                            <td><img class="usersImg" style="width:32px; height:auto;" src="img/category/technologyIconCircle.png"></td>
+                            <td><?php echo $name;?></td>
+                            <!-- <td><input type="number" name="quantity" class="in" style="width:40px;"></td> -->
+                            <td><?php echo $price;?>€</td>
+                            <td><a href="orderProduct.php?id=<?php echo $productId;?>&category=<?php echo $CATEGORY;?>"><i class="fas fa-plus addProduct"></i></a></td>
+                        </tr>
+                        <?php
                     }
                 }
             ?>
         </table>
             <?php 
-                if($products != null) {
+                if($products != null && isset($_SESSION['OrderID'])) {
             ?>
             <div style="color:white; font-family:sitkaSmall; font-size:16pt; background-color:rgba(46,46,46,.8); width:150px; border-radius:20px; padding: 5px 5px 5px 5px;">
                 <a href="checkoutOrder.php" class="fas fa-shopping-cart fa-1x" style="margin-top:5px;"></a><br>
                 <a href="checkoutOrder.php" style="font-size:12pt; color:white;">Finalizar Pedido</a>
             </div>
             <?php
-                } else {
+                } elseif($products == null) {
                     echo '<a style="font-family: sitkaSmall;">Atualmente não se encontra nenhum produto em stock.</a>';
                 }
             ?>

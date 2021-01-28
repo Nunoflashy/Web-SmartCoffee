@@ -37,7 +37,7 @@
                     $category   = ProductUtils::GetCategory($p);
                     $units      = ProductUtils::GetStock($p);
                     $price      = number_format(ProductUtils::GetPrice($p), 2);
-            ?>
+                ?>
                     <tr>
                         <td><img class="usersImg" src="<?php echo ProductUtils::GetCategoryImage($productId); ?>" style="width:32px; height:auto;">
                         </td>
@@ -49,7 +49,7 @@
                         <td><a class="userDashboardAction" href="editProduct.php?id=<?php echo $productId;?>#modal"><i class="fas fa-edit"></i>Editar</a></td>
                         <td><a class="userDashboardAction" href="removeProduct.php?id=<?php echo $productId;?>"><i class="fas fa-trash-alt"></i>Remover</a></td>
                     </tr>
-                    <?php
+                <?php
                 }
             ?>
             <tr>

@@ -1,3 +1,4 @@
+<?php require 'admin/permissions.php'; ?>
 <?php
     include_once('Util/UserUtils.php');
     include_once('Util/AuthenticationManager.php');
@@ -6,7 +7,7 @@
     $AccountID = $_GET['id'];
 
     $loggedUser = AuthenticationManager::AuthenticatedUser();
-    
+
     if(UserUtils::GetUserID($loggedUser) == $AccountID) {
         // O utilizador é o que está logado atualmente
         MessageBox::InfoMessage("Erro", "Nao pode remover o proprio utilizador!", $ok_callback = "listUsers.php")->show();

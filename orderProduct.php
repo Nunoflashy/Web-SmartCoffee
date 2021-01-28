@@ -13,19 +13,19 @@
         global $ProductID, $AccountID;
         
         
-        $LoginCount = UserUtils::GetLoginCount(AuthenticationManager::AuthenticatedUser());
+        $LoginCount = UserUtils::GetLoginCount($AccountID);
         // Debug LoginCount
-        echo $LoginCount;
+        echo $LoginCount.'<br>';
 
         // Formar o OrderID a partir destes valores
         //$_SESSION['OrderID'] = (100 + $AccountID + $LoginCount);
         $_SESSION['OrderID'] = OrderUtils::GetLastID() + 1;
         $OrderID = $_SESSION['OrderID'];
 
-        $UnitPrice = $_SESSION['UnitPrice'];
-
         // Debug OrderID
         printf("OrderID: %s", $_SESSION['OrderID']);
+        printf("<br>Stock: %s<br>", ProductUtils::GetStock($ProductID));
+        //die();
         
         if(OrderUtils::ProductExists($OrderID, $ProductID)) {
             if(ProductUtils::GetStock($ProductID) > 0) {

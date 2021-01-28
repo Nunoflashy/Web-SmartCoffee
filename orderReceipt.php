@@ -37,12 +37,11 @@
                     <tr>
                         <td><?php echo ProductUtils::GetName($p); ?></td>
                         <td><?php echo $UnitsOfEachProduct[$productCount];?></td>
-                        <td><?php echo (ProductUtils::GetPrice($p) * $UnitsOfEachProduct[$productCount]);?>€</td>
+                        <td><?php echo number_format((ProductUtils::GetPrice($p) * $UnitsOfEachProduct[$productCount]), 2);?>€</td>
                     </tr>
                 <?php
                     $productCount++;
                 }
-                
             ?>
         </table>
         <!-- ------------------- -->
@@ -58,15 +57,11 @@
                 return $total;
             }
 
-            echo getTotalPrice();
+            echo number_format(getTotalPrice(), 2);
         ?>€</p>
         <p style="font-family:sitkaSmall;">Data: <?php echo $OrderDate;?></p>
-        <a href="showProducts.php" style="width:200px; height:50px; font-family:sitkaSmall;" class="in">OK</a>
+        <a href="order/completed.php" style="width:200px; height:50px; font-family:sitkaSmall;" class="in">OK</a>
         </center>
 	</div>
 </body>
 </html>
-
-<?php
-    unset($_SESSION['ProductIDList']);
-?>

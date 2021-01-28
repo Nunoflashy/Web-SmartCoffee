@@ -1,3 +1,5 @@
+<?php require 'admin/permissions.php'; ?>
+
 <?php
     $AccountID = $_GET['id'];
     $username  = $_POST['Username'];
@@ -95,25 +97,16 @@
     }
 
     // Update User, Name, Mail
-    // if(!UserUtils::Exists($username) && UserUtils::GetUserID($AccountID) == $AccountID) {
-        mysqli_query($connection, "UPDATE account SET Username='$username' WHERE account.AccountID='$AccountID'");
-    // } else {
-    //     $msg_title = "Ocorreu um erro!";
-    //     $msg_body = "O username inserido já se encontra registado!";
-    //     header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
-    //     return;
-    // }
-    mysqli_query($connection, "UPDATE user SET Name='$name' WHERE user.AccountID='$AccountID'");
-    mysqli_query($connection, "UPDATE user SET Mail='$mail' WHERE user.AccountID='$AccountID'");
-    //UserUtils::SetPassword($AccountID, $pass);
+    UserUtils::SetUsername($AccountID, $username);
+    UserUtils::SetName($AccountID, $name);
+    UserUtils::SetMail($AccountID, $mail);
     
     // Nao atualizar avatar se nao for escolhido nenhum
     if($avatar) {
         UserUtils::SetAvatar($AccountID, $avatar);
     }
 
-    // Update Tipo
-    //mysqli_query($connection, "UPDATE account SET Type='$accType' WHERE account.AccountID='$AccountID'");
+    // Update Tipo de Conta
     UserUtils::UpdateUserType($AccountID, $accType);
 
     // Update Pass
@@ -128,8 +121,6 @@
             return;
         }
         if(isPasswordValid()) {
-            // $hash = SHA1($pass);
-            // mysqli_query($connection, "UPDATE account SET Password='$hash' WHERE account.AccountID='$AccountID'");
             UserUtils::SetPassword($AccountID, $pass);
         } else {
             // Pass não coincide
@@ -140,9 +131,6 @@
             )->show();
             return;
         }
-        $msg_title = "Sucesso!";
-        $msg_body = "A password foi alterada com sucesso!";
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=listUsers.php#modal");
     }
 
     header("location: listUsers.php");

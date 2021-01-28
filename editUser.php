@@ -1,3 +1,5 @@
+<?php require 'admin/permissions.php'; ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,22 +13,11 @@
         include_once('Util/AuthenticationManager.php');
 
         $id = $_GET['id'];
-        
-        $resultado = mysqli_query($connection, "SELECT * FROM account a JOIN user u ON a.AccountID=u.AccountID WHERE a.AccountID=".$id."");
-        $res = mysqli_fetch_assoc($resultado);
 
-        $ACCOUNT_CUSTOMER = 1;
-        $ACCOUNT_ADMIN    = 2;
-
-        $accType = $res['Type'];
-
-        $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
-        $isUserAdmin    = UserUtils::IsAdmin($AccountID);
-        
-        if(!$isUserAdmin) {
-            header("location: login.php#modal");
-            return;
-        }
+        $username   = UserUtils::GetUsername($id);
+        $name       = UserUtils::GetName($id);
+        $mail       = UserUtils::GetMail($id);
+        $accType    = UserUtils::GetAccountType($id);
     ?>
 
 </head>
@@ -38,22 +29,22 @@
 		<form method="POST" action="updateUser.php?id=<?php echo $id;?>">
             <center>
             <img src="img/logoSmall.png" style="opacity: 0.4; margin-top:10px; width: 64px;">
-            <p style="font-family:sitkaSmall;">Editar Utilizador <br><?php echo $res['Username'];?></p>
+            <p style="font-family:sitkaSmall;">Editar Utilizador <br><?php echo $username;?></p>
             <p><input type="text" name="userid" value="ID: <?php echo $id;?>" class="in" readonly></p>
-			<p><input type="text" name="Name" value="<?php echo $res['Name'];?>" placeholder="Nome" class="in"></p>
-            <p><input type="text" name="Mail" value="<?php echo $res['Mail'];?>" placeholder="E-Mail" class="in"></p>
-            <p><input type="text" name="Username" value="<?php echo $res['Username'];?>" placeholder="Username" class="in" 
+			<p><input type="text" name="Name" value="<?php echo $name;?>" placeholder="Nome" class="in"></p>
+            <p><input type="email" name="Mail" value="<?php echo $mail;?>" placeholder="E-Mail" class="in"></p>
+            <p><input type="text" name="Username" value="<?php echo $username;?>" placeholder="Username" class="in" 
             <?php
                 // Definir como readonly se for o utilizador logado atualmente
                 include('Util/AuthenticationManager.php');
-                echo (AuthenticationManager::AuthenticatedUser() == $res['Username']) ? "readonly" : "";
+                echo (AuthenticationManager::AuthenticatedUser() == $username) ? "readonly" : "";
             ?> ></p>
-            <div id="accTypeContainer" style="width:200px; height:100px; border-radius:5px; background-color:rgba(46,46,46,.8);">
+            <div id="accTypeContainer">
                 <p style="font-family:sitkaSmall; font-size:10pt; padding-top:10px;"><b>Tipo de Conta</b></p>
                 <p>
-                    <input type="radio" name="accType" value="1" <?php echo ($accType == $ACCOUNT_CUSTOMER) ? 'checked="checked"' : '';?>>
+                    <input type="radio" name="accType" value="1" <?php echo ($accType == UserUtils::$ACCOUNT_CUSTOMER) ? 'checked="checked"' : '';?>>
                     <label for="1">Cliente</label><br>
-                    <input type="radio" name="accType" value="2" <?php echo ($accType == $ACCOUNT_ADMIN) ? 'checked="checked"' : '';?>>
+                    <input type="radio" name="accType" value="2" <?php echo ($accType == UserUtils::$ACCOUNT_ADMIN) ? 'checked="checked"' : '';?>>
                     <label for="2">Administrador</label>
                 </p>
             </div>

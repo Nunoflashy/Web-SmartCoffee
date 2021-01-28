@@ -2,13 +2,13 @@
     include_once('UserUtils.php');
 
     class RegistrationManager {
-        private ?string $username = null;
-        private ?string $password = null;
-        private ?string $name     = null;
-        private ?string $mail     = null;
-        private ?string $repass   = null;
+        private $username = null;
+        private $password = null;
+        private $name     = null;
+        private $mail     = null;
+        private $repass   = null;
 
-        private ?string $error    = null;
+        private $error    = null;
 
         function __construct($name, $mail, $username, $password, $repass) {
             $this->setDetails($name, $mail, $username, $password, $repass);

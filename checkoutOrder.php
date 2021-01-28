@@ -32,7 +32,7 @@
     $totalPrice = 0;
     //Para cada produto p
     foreach($products as &$p) {
-        // Get units
+        // Unidades de cada produto na order
         $units = OrderUtils::GetUnits($OrderID, $p);
 
         // Atualizar stock

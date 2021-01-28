@@ -1,20 +1,4 @@
-<?php
-    include_once('Util/AuthenticationManager.php');
-    $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
-    $isUserAdmin    = UserUtils::IsAdmin($AccountID);
-
-    // Se nao estiver logado
-    if(!$AccountID) {
-        header("location: login.php#modal");
-        return;
-    }
-    
-    // Se nao for admin
-    if(!$isUserAdmin) {
-        header("location: showProducts.php");
-        return;
-    }
-?>
+<?php require 'admin/permissions.php'; ?>
 
 <html lang="en">
 <head>

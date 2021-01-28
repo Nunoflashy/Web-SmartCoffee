@@ -34,17 +34,16 @@
             <?php
                 foreach($orders as &$o) {
                     $orderId            = $o;
-                    $accountId          = OrderUtils::GetCustomer($o);
+                    $accountId          = OrderUtils::GetCustomer($orderId);
                     $customerUsername   = UserUtils::GetUsername($accountId);
                     $customerName       = UserUtils::GetName($accountId);
-                    $orderDate          = OrderUtils::GetDate($o);
-                    $orderTotal         = OrderUtils::GetTotal($o);
+                    $orderDate          = OrderUtils::GetDate($orderId);
+                    $orderTotal         = number_format(OrderUtils::GetTotal($orderId), 2);
             ?>
                 <tr class="tableText" style="font-size: 10pt;">
                     <td>
-                        
                         <img class="usersImg" src="img/orders.png" style="width:24px; height:auto;">
-                        <a href="orderActions/remove.php?OrderID=<?php echo $o;?>" class="fas fa-minus fa-2x" style="margin-top:-25px; position:relative; left:50;"></a>
+                        <a href="orderActions/remove.php?OrderID=<?php echo $orderId;?>" class="fas fa-minus fa-2x" style="margin-top:-25px; position:relative; left:50;"></a>
                     </td>
                     <td style="text-align:center;"><?php echo $orderId;?></td>
                     <td style="text-align:center;"><?php echo $customerUsername;?></td>

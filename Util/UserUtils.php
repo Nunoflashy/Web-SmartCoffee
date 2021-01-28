@@ -4,27 +4,12 @@
 if(!class_exists("UserUtils")) {
     class UserUtils {
         static function IsBlocked($username) {
-            global $connection;
-            $ACCOUNT_BLOCKED = 0;
-            $ACCOUNT_NORMAL  = 1;
-    
-            $sql = mysqli_query($connection, "SELECT Status FROM account WHERE Username='$username'");
-            $res = mysqli_fetch_assoc($sql);
-            return $res['Status'] == $ACCOUNT_BLOCKED;
+            $AccountID = self::GetUserID($username);
+            return self::GetAccountStatus($AccountID) == self::$ACCOUNT_BLOCKED;
         }
 
         static function IsAdmin($AccountID) {
-            global $connection;
-            $sql = mysqli_query($connection, "SELECT * FROM account WHERE AccountID='$AccountID'");
-
-            if(!$sql) {
-                die(mysqli_error($connection));
-            }
-
-            $res = mysqli_fetch_assoc($sql);
-            $ACCOUNT_NORMAL = 1;
-            $ACCOUNT_ADMIN  = 2;
-            return $res['Type'] == $ACCOUNT_ADMIN;
+            return self::GetAccountType($AccountID) == self::$ACCOUNT_ADMIN;
         }
         
         static function HasAdminAccount() {
@@ -37,6 +22,17 @@ if(!class_exists("UserUtils")) {
                 }
             }
             return false;
+        }
+
+        private static $ACCOUNT_ID = 0;
+        private static $ACCOUNT_USERNAME = 1;
+
+        private static function GetParamType($param) {
+            switch(gettype($param)) {
+                case "integer": return self::$ACCOUNT_ID;
+                case "string":  return self::$ACCOUNT_USERNAME;
+                default: die("Invalid parameter passed for user!");
+            }
         }
 
         static function SetAdmin($username) {
@@ -169,10 +165,15 @@ if(!class_exists("UserUtils")) {
             
             // Sem avatar
             if($avatar == '') {
-                $avatar = "img/avatars/avatar.jpg";
+                $avatar = self::GetFallbackAvatar();
             }
 
             return $avatar;
+        }
+        
+        static function GetFallbackAvatar() {
+            $path = "img/avatars/avatar.jpg";
+            return $path;
         }
 
         static function HasAvatar($AccountID) {
@@ -194,22 +195,43 @@ if(!class_exists("UserUtils")) {
             global $connection;
             $sql = mysqli_query($connection, "SELECT Password FROM account WHERE AccountID='$AccountID'");
             $res = mysqli_fetch_assoc($sql);
-            return $res;
+            return $res['Password'];
+        }
+
+        static function SetName($AccountID, $Name) {
+            global $connection;
+            $sql = mysqli_query($connection, "UPDATE user SET Name='$Name' WHERE AccountID='$AccountID'");
+        }
+
+        static function SetMail($AccountID, $Mail) {
+            global $connection;
+            $sql = mysqli_query($connection, "UPDATE user SET Mail='$Mail' WHERE AccountID='$AccountID'");
+        }
+
+        static function SetUsername($AccountID, $Username) {
+            global $connection;
+            $sql = mysqli_query($connection, "UPDATE account SET Username='$Username' WHERE AccountID='$AccountID'");
         }
 
         static function BlockUser($AccountID) {
             global $connection;
-            $ACCOUNT_BLOCKED = 0;
-            $ACCOUNT_NORMAL  = 1;
-            $sql = mysqli_query($connection, "UPDATE account SET Status='$ACCOUNT_BLOCKED' WHERE account.AccountID='$AccountID'");
+            $blocked = self::$ACCOUNT_BLOCKED;
+            $sql = mysqli_query($connection, "UPDATE account SET Status='$blocked' WHERE account.AccountID='$AccountID'");
         }
 
         static function UnblockUser($AccountID) {
             global $connection;
-            $ACCOUNT_BLOCKED = 0;
-            $ACCOUNT_NORMAL  = 1;
-            $sql = mysqli_query($connection, "UPDATE account SET Status='$ACCOUNT_NORMAL' WHERE account.AccountID='$AccountID'");
+            $normal = self::$ACCOUNT_NORMAL;
+            $sql = mysqli_query($connection, "UPDATE account SET Status='$normal' WHERE account.AccountID='$AccountID'");
         }
+
+        // Account Types
+        static $ACCOUNT_CUSTOMER = 1;
+        static $ACCOUNT_ADMIN    = 2;
+
+        // Account Status
+        static $ACCOUNT_BLOCKED = 0;
+        static $ACCOUNT_NORMAL  = 1;
     }
 }
 ?>

@@ -5,9 +5,9 @@
     $unitsInStock   = $_POST['UnitsInStock'];
     $unitPrice      = $_POST["UnitPrice"];
 
-    include('connectDB.php');
+    include_once('Util/ProductUtils.php');
 
-    // Update User, Name, Mail
-    mysqli_query($connection, "UPDATE product SET Name='$name', Category='$category', UnitsInStock='$unitsInStock', UnitPrice='$unitPrice' WHERE ProductID='$ProductID'");
+    //mysqli_query($connection, "UPDATE product SET Name='$name', Category='$category', UnitsInStock='$unitsInStock', UnitPrice='$unitPrice' WHERE ProductID='$ProductID'");
+    ProductUtils::UpdateProduct($ProductID, $name, $category, $unitsInStock, $unitPrice);
     header("location: listProducts.php");
 ?>

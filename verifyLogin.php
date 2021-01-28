@@ -1,6 +1,7 @@
 <?php
     include_once('Util/UserUtils.php');
     include_once('Util/AuthenticationManager.php');
+    include_once('Util/MessageBox.php');
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -22,7 +23,6 @@
         }
     } else {
         // Login falhado
-        $errorMsg = $auth->getError();
-        header("location: messageInfo.php?msg_title=Erro&msg_body=$errorMsg&ok_callback=index.php#modal");
+        MessageBox::InfoMessage("Erro", $auth->getError(), $ok_callback = "index.php")->show();
     }
 ?>

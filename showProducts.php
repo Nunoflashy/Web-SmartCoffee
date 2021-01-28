@@ -1,4 +1,5 @@
 <?php
+    include_once('main.php');
     include_once('Util/AuthenticationManager.php');
     $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
     $isUserAdmin    = UserUtils::IsAdmin($AccountID);
@@ -21,11 +22,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Coffee - Produtos</title>
-
-    <?php
-        include('main.php');
-    ?>
-
 </head>
 <body>
 <div style="background-image: url('img/backgroundUsers.png'); width:100%; height:100%;">

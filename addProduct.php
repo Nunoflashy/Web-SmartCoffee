@@ -1,3 +1,5 @@
+<?php require 'admin/permissions.php'; ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

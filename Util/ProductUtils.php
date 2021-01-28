@@ -70,6 +70,11 @@ if(!class_exists("ProductUtils")) {
             $sql = mysqli_query($connection, "DELETE FROM product WHERE ProductID='$ProductID'");
         }
 
+        static function UpdateProduct($ProductID, $Name, $Category, $UnitsInStock, $UnitPrice) {
+            global $connection;
+            $sql = mysqli_query($connection, "UPDATE product SET Name='$Name', Category='$Category', UnitsInStock='$UnitsInStock', UnitPrice='$UnitPrice' WHERE ProductID='$ProductID'");
+        }
+
         static function Exists($name) {
             global $connection;
             $sql = mysqli_query($connection, "SELECT * FROM product WHERE Name='$name'");

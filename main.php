@@ -20,10 +20,10 @@
                         $loginAction    = "login.php#modal";
                         $registerAction = "register.php#modal";
                 ?>
-                        <div class="authLogout" style="position:relative; text-align:center; width:140px; left:10%; top:20;"><a href="<?php echo $loginAction;?>" class="fas fa-sign-in-alt"></a>
+                        <div class="authLogin"><a href="<?php echo $loginAction;?>" class="fas fa-sign-in-alt"></a>
                             <a href="<?php echo $loginAction;?>" style="color: white;">Login</a>
                         </div>
-                        <div class="authLogout" style="position:relative; text-align:center; width:140px; left:10%; top:40;"><a href="<?php echo $registerAction;?>" class="fas fa-user-plus"></a>
+                        <div class="authRegister"><a href="<?php echo $registerAction;?>" class="fas fa-user-plus"></a>
                             <a href="<?php echo $registerAction;?>" style="color: white;">Registar</a>
                         </div>
                 <?php
@@ -33,11 +33,8 @@
                         $isAdmin = UserUtils::IsAdmin($AccountID);
                         $redirectAction = ($isAdmin) ? 'adminOverview.php' : 'showProducts.php';
                         $avatar = UserUtils::GetAvatar($AccountID);
-
-                        // Fallback avatar
-                        if($avatar == '') $avatar = "img/avatars/avatar.jpg";
                         
-                        echo sprintf('<a href="%s"><img src="%s" class="authItem authIcon"></a>',
+                        echo sprintf('<a href="%s"><img src="%s" class="authItem authAvatar"></a>',
                                     $redirectAction, $avatar);
                 ?>
                         <a class="authItem authUsername" href=""><?php echo $username;?></a>

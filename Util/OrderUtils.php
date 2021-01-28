@@ -20,17 +20,17 @@
         }
 
         static function AddProduct($OrderID, $ProductID, $Units) {
-            include('connectDB.php');
+            global $connection;
             $sql = mysqli_query($connection, "INSERT INTO `order details` (OrderID, ProductID, Units) VALUES('$OrderID', '$ProductID', '$Units') ");
         }
 
         static function SetTotal($OrderID, $Total) {
-            include('connectDB.php');
+            global $connection;
             $sql = mysqli_query($connection, "UPDATE orders SET Total='$Total' WHERE OrderID='$OrderID'");
         }
 
         static function AddOrder($OrderID, $AccountID, $OrderDate) {
-            include('connectDB.php');
+            global $connection;
             mysqli_query($connection, "INSERT INTO orders (OrderID, AccountID, EmployeeID, OrderDate) VALUES('$OrderID', '$AccountID', '1', '$OrderDate')");
             //mysqli_close($connection);
         }
@@ -43,6 +43,16 @@
                 $lastOrderId = $res['OrderID'];
             }
             return $lastOrderId;
+        }
+
+        static function GetLastOngoingID() {
+            global $connection;
+            $sql = mysqli_query($connection, "SELECT * FROM `order details`");
+            $lastOrderId = 0;
+            while($res = mysqli_fetch_assoc($sql)) {
+                $lastOrderId = $res['OrderID'];
+            }
+            return ($lastOrderId != self::GetLastID()) ? intval($lastOrderId) : false;
         }
 
         static function ProductExists($OrderID, $ProductID) {
@@ -90,7 +100,46 @@
         
         static function RemoveOrder($OrderID) {
             global $connection;
+            // Remove Order
             $sql = mysqli_query($connection, "DELETE FROM orders WHERE OrderID='$OrderID'");
+
+            // Remove Order Details
+            $sql = mysqli_query($connection, "DELETE FROM `order details` WHERE OrderID='$OrderID'");
         }
+
+        /*
+        Destruir a order se esta nao for finalizada mas estiver registada
+            Retorna true se a order for destruida, false se nao existir ou se estiver concluida.
+        */
+        static function DestroyOngoingOrder() {
+            $OrderID = $_SESSION['OrderID'] ?? self::GetLastOngoingID();
+            if(self::OrderExists($OrderID) && !self::IsOrderComplete($OrderID)) {
+                self::RemoveOrderDetails($OrderID);
+                return true;
+            }
+            return false;
+        }
+
+        private static function IsOrderComplete($OrderID) {
+            global $connection;
+            $sql = mysqli_query($connection, "SELECT * FROM orders WHERE OrderID='$OrderID'");
+            $res = mysqli_num_rows($sql);
+            $isOrderCompleted = ($res == 1);
+            return $isOrderCompleted;
+        }
+
+        private static function OrderExists($OrderID) {
+            global $connection;
+            $sql = mysqli_query($connection, "SELECT * FROM `order details` WHERE OrderID='$OrderID'");
+            $res = mysqli_num_rows($sql);
+            $orderExists = ($res > 0);
+            return $orderExists;
+        }
+
+        private static function RemoveOrderDetails($OrderID) {
+            global $connection;
+            $sql = mysqli_query($connection, "DELETE FROM `order details` WHERE OrderID='$OrderID'");
+        }
+
     }
 ?>

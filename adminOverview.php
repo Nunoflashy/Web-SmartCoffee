@@ -10,19 +10,13 @@
         include_once('adminMenu.php');
         include_once('Util/UserUtils.php');
         include_once('Util/ProductUtils.php');
+        include_once('Util/OrderUtils.php');
         include_once('Util/AuthenticationManager.php');
 
         $lastUserId     = UserUtils::GetLastUserID();
         $lastUsername   = UserUtils::GetUserByID($lastUserId);
         $users          = UserUtils::GetAllUsersID();
         $products       = ProductUtils::GetAllID();
-
-        //Type
-        $ACCOUNT_CUSTOMER = 1;
-        $ACCOUNT_ADMIN = 2;
-        // Status
-        $ACCOUNT_BLOCKED = 0;
-        $ACCOUNT_NORMAL = 1;
     ?>
 
 </head>
@@ -52,7 +46,7 @@
                         $username       = UserUtils::GetUsername($accountId);
                         $name           = UserUtils::GetName($accountId);
                         $mail           = UserUtils::GetMail($accountId);
-                        $accType        = UserUtils::GetAccountType($accountId);
+                        $isAdmin        = UserUtils::IsAdmin($accountId);
                         $isBlocked      = UserUtils::IsBlocked($username);
                         $registerDate   = UserUtils::GetRegisterDate($accountId);
                         $loginCount     = UserUtils::GetLoginCount($accountId);
@@ -64,7 +58,7 @@
                         <td style="text-align:center;"><?php echo $username;?></td>
                         <td style="text-align:center;"><?php echo $name;?></td>
                         <td style="text-align:center;"> <!-- Tipo de Conta -->
-                            <?php echo $accType == $ACCOUNT_ADMIN ? "Administrador" : "Cliente";?>
+                            <?php echo $isAdmin ? "Administrador" : "Cliente";?>
                         </td>
                         <td style="text-align:center;"> <!-- Estado da Conta -->
                             <?php echo $isBlocked ? "Bloqueada" : "Normal";?>
@@ -111,7 +105,6 @@
             </table>
         </div>
         <?php
-        include_once('Util/OrderUtils.php');
         $orders = OrderUtils::GetAllID();
         if(sizeof($orders) != 0) {
         ?>
@@ -132,7 +125,7 @@
                         $accountId      = OrderUtils::GetCustomer($o);
                         $customerName   = UserUtils::GetUsername($accountId);
                         $orderDate      = OrderUtils::GetDate($o);
-                        $orderTotal     = OrderUtils::GetTotal($o);
+                        $orderTotal     = number_format(OrderUtils::GetTotal($o), 2);
                 ?>
                     <tr class="tableText" style="font-size: 10pt;">
                         <td><img class="usersImg" src="img/orders.png" style="width:24px; height:auto;"></td>

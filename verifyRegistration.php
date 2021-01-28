@@ -1,5 +1,6 @@
 <?php
     include_once('Util/RegistrationManager.php');
+    include_once('Util/MessageBox.php');
 
     $name       = $_POST['name'];
     $mail       = $_POST['mail'];
@@ -22,13 +23,10 @@
             sprintf("Bem-Vindo ao Smart Coffee %s!", $name),
             sprintf("A sua conta %s foi registada no nosso sistema com sucesso!\nPode agora efetuar o login e começar a pesquisar o nosso catálogo!", $username)
         );
-
         // Redirect login
         header("location: login.php#modal");
     } else {
-        $msg_title = "Erro no Registo!";
-        $msg_body = $reg->getError();
-        header("location: messageInfo.php?msg_title=$msg_title&msg_body=$msg_body&ok_callback=index.php#modal");
+        MessageBox::InfoMessage("Erro no Registo!", $reg->getError(), $ok_callback = "index.php")->show();
     }
 
     // if(!UserUtils::Exists($username)) {

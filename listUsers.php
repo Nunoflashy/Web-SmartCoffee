@@ -1,23 +1,7 @@
 <?php
-        include_once('Util/AuthenticationManager.php');
-
-        //Type
-        $ACCOUNT_CUSTOMER = 1;
-        $ACCOUNT_ADMIN = 2;
-        // Status
-        $ACCOUNT_BLOCKED = 0;
-        $ACCOUNT_NORMAL = 1;
-        
-        $AccountID      = UserUtils::GetUserID(AuthenticationManager::AuthenticatedUser());
-        $isUserAdmin    = UserUtils::IsAdmin($AccountID);
-
-        if(!$isUserAdmin) {
-            header("location: login.php#modal");
-            return;
-        }
-
-        include_once('main.php');
-        include_once('adminMenu.php');
+    include_once('main.php');
+    include_once('adminMenu.php');
+    include_once('Util/UserUtils.php');
 ?>
 
 <html lang="en">
@@ -48,44 +32,43 @@
                 <th></th>
             </thead>
             <?php
-                include('connectDB.php');
-                $resultado = mysqli_query($connection, "SELECT * FROM account a JOIN user u ON a.AccountID=u.AccountID");
-                while($res = mysqli_fetch_assoc($resultado)) {
-                    $id = $res['AccountID'];
-                    $avatar = UserUtils::GetAvatar($id);
+                $users = UserUtils::GetAllUsersID();
+                foreach($users as &$u) {
+                    $AccountID  = $u;
+                    $Username   = UserUtils::GetUsername($AccountID);
+                    $Name       = UserUtils::GetName($AccountID);
+                    $Mail       = UserUtils::GetMail($AccountID);
+                    $Type       = UserUtils::GetAccountType($AccountID);
+                    $Status     = UserUtils::GetAccountStatus($AccountID);
+                    $IsBlocked  = UserUtils::IsBlocked($Username);
+                    $Avatar     = UserUtils::GetAvatar($AccountID);
                     ?>
                     <tr>
-                        <td><img src="<?php echo $avatar; ?>" style="width:24px; height:24px; border-radius:50px;"></td>
-                        <td style="text-align:center;"><?php echo $res['AccountID']; ?></td>
-                        <td style="text-align:center;"><?php echo $res['Username']; ?></td>
-                        <td style="text-align:center;"><?php echo $res['Name']; ?></td>
-                        <td style="text-align:center;"><?php echo $res['Mail']; ?></td>
+                        <td><img src="<?php echo $Avatar; ?>" class="avatar"></td>
+                        <td style="text-align:center;"><?php echo $AccountID; ?></td>
+                        <td style="text-align:center;"><?php echo $Username; ?></td>
+                        <td style="text-align:center;"><?php echo $Name; ?></td>
+                        <td style="text-align:center;"><?php echo $Mail; ?></td>
                         <td style="text-align:center;"> <!-- Tipo de Conta -->
                             <?php
-                                switch($res['Type']) {
-                                    case $ACCOUNT_CUSTOMER: echo "Cliente"; break;
-                                    case $ACCOUNT_ADMIN: echo "Administrador"; break;
+                                switch($Type) {
+                                    case UserUtils::$ACCOUNT_CUSTOMER: echo "Cliente"; break;
+                                    case UserUtils::$ACCOUNT_ADMIN: echo "Administrador"; break;
                                 }
                             ?>
                         </td>
                         <td style="text-align:center;"> <!-- Estado da Conta -->
                             <?php
-                                switch($res['Status']) {
-                                    case $ACCOUNT_BLOCKED: echo "Bloqueada"; break;
-                                    case $ACCOUNT_NORMAL: echo "Normal"; break;
-                                }
+                                echo $IsBlocked ? "Bloqueada" : "Normal";
                             ?>
                         </td>
-                        <td><a href="editUser.php?id=<?php echo $res['AccountID'];?>#modal" class="userDashboardAction"><i class="fas fa-edit"></i>Editar</a></td>
-                        <td><a href="toggleBlockUser.php?id=<?php echo $res['AccountID'];?>" class="userDashboardAction"><i class="fas fa-ban"></i>
+                        <td><a href="editUser.php?id=<?php echo $AccountID;?>#modal" class="userDashboardAction"><i class="fas fa-edit"></i>Editar</a></td>
+                        <td><a href="toggleBlockUser.php?id=<?php echo $AccountID;?>" class="userDashboardAction"><i class="fas fa-ban"></i>
                             <?php
-                                switch($res['Status']) {
-                                    case $ACCOUNT_BLOCKED: echo "Desbloquear"; break;
-                                    case $ACCOUNT_NORMAL: echo "Bloquear"; break;
-                                }
+                                echo $IsBlocked ? "Desbloquear" : "Bloquear";
                             ?>
                         </a></td>
-                        <td><a href="removeUser.php?id=<?php echo $res['AccountID'];?>" class="userDashboardAction"><i class="fas fa-trash-alt"></i>Remover</a></td>
+                        <td><a href="removeUser.php?id=<?php echo $AccountID;?>" class="userDashboardAction"><i class="fas fa-trash-alt"></i>Remover</a></td>
                     </tr>
                     <?php
                 }

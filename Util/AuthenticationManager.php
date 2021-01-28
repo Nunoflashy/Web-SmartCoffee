@@ -2,10 +2,10 @@
     include_once(dirname(__DIR__).'/Util/UserUtils.php');
 if(!class_exists("AuthenticationManager")) {
     class AuthenticationManager {
-        private ?string $username = null;
-        private ?string $password = null;
+        private $username = null;
+        private $password = null;
 
-        private ?string $error = null;
+        private $error = null;
         
         function __construct($u, $p) {
             $this->setDetails($u, $p);
